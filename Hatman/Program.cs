@@ -47,21 +47,21 @@ namespace Hatman
             {
                 var prop = l.Trim().ToUpperInvariant().Substring(0, 4);
 
-                switch (l)
+                switch (prop)
                 {
                     case "EMAI":
                     {
-                        email = l.Remove(6);
+                        email = l.Remove(0, 6);
                         break;
                     }
                     case "PASS":
                     {
-                        password = l.Remove(9);
+                        password = l.Remove(0, 9);
                         break;
                     }
                     case "ROOM":
                     {
-                        roomURL = l.Remove(8);
+                        roomURL = l.Remove(0, 8);
                         break;
                     }
                 }
