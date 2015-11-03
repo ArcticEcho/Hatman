@@ -60,8 +60,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\Blame.cs" />
+    <Compile Include="Commands\DontHurtMe.cs" />
     <Compile Include="Commands\Face.cs" />
     <Compile Include="Commands\ICommand.cs" />
+    <Compile Include="Commands\WhatIsLove.cs" />
     <Compile Include="Commands\When.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Program.cs" />

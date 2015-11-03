@@ -48,7 +48,7 @@ namespace Hatman
             Extensions.SelfID = chatRoom.Me.ID;
             AttachChatEventListeners();
 
-            Console.WriteLine("done.");
+            Console.WriteLine("done.\n");
             PostJoinPic();
 
             shutdownMre.WaitOne();
@@ -155,6 +155,7 @@ namespace Hatman
 
         private static void HandleNewMessage(Message m)
         {
+            Console.WriteLine(m.Author + "| " + m);
             foreach (var trg in triggers)
             {
                 trg.ProcessMessage(m, ref chatRoom);

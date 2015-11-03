@@ -9,7 +9,7 @@ namespace Hatman.Commands
 {
     class DontHurtMe : ICommand
     {
-        private readonly Regex ptn = new Regex(@"(?i)^don't hurt me\.?$", Extensions.RegOpts);
+        private readonly Regex ptn = new Regex(@"(?i)^don'?t hurt me\.?$", Extensions.RegOpts);
 
         public Regex CommandPattern
         {
