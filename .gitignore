@@ -195,4 +195,4 @@ FakesAssemblies/
 # Visual Studio 6 workspace options file
 *.opt
 
-Hatman/Config.txt
+/Hatman/Config.txt
