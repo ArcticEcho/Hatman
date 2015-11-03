@@ -26,7 +26,10 @@ namespace Hatman.Commands
             "In 6 to 8 moons.",
             "When ---Shog--- the Unicorns say so.",
             "Whenever I finally get my waffles.",
-            "Never."
+            "Never.",
+            "When hell freezes over.",
+            "Soon™.",
+            "When Jon Skeet stops making rep."
         };
 
         public Regex CommandPattern
