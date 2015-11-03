@@ -49,8 +49,11 @@ namespace Hatman
             AttachChatEventListeners();
 
             Console.WriteLine("done.");
+            PostJoinPic();
 
             shutdownMre.WaitOne();
+
+            PostLeavePic();
         }
 
         private static void ReadConfig(out string email, out string password)
@@ -155,6 +158,34 @@ namespace Hatman
             {
                 trg.ProcessMessage(m, ref chatRoom);
             }
+        }
+
+        private static void PostJoinPic()
+        {
+            var pics = new[]
+            {
+                "",
+                "",
+                "",
+                "",
+                ""
+            };
+
+            chatRoom.PostMessageFast(pics.PickRandom());
+        }
+
+        private static void PostLeavePic()
+        {
+            var pics = new[]
+            {
+                "",
+                "",
+                "",
+                "",
+                ""
+            };
+
+            chatRoom.PostMessageFast(pics.PickRandom());
         }
     }
 }
