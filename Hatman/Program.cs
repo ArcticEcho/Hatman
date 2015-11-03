@@ -54,6 +54,7 @@ namespace Hatman
             shutdownMre.WaitOne();
 
             PostLeavePic();
+            chatRoom.Leave();
         }
 
         private static void ReadConfig(out string email, out string password)

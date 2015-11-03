@@ -19,7 +19,7 @@ namespace Hatman.Triggers
 
             if (curMsg == lastMsg && curMsg != lastPostedMessage)
             {
-                rm.PostMessageFast(lastMsg);
+                rm.PostMessageFast(msg.Content);
                 lastPostedMessage = lastMsg;
             }
 
