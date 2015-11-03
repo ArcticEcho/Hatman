@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using ChatExchangeDotNet;
 
@@ -8,6 +9,7 @@ namespace Hatman.Triggers
 {
     public class Train : ITrigger
     {
+        private readonly RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
         private string lastMsg = "";
         private string lastPostedMessage = "";
 
@@ -17,13 +19,38 @@ namespace Hatman.Triggers
         {
             var curMsg = msg.Content.ToLowerInvariant();
 
+            if (curMsg.StartsWith("https"))
+            {
+                curMsg = curMsg.Remove(4, 1);
+            }
+
             if (curMsg == lastMsg && curMsg != lastPostedMessage)
             {
-                rm.PostMessageFast(msg.Content);
+                var n = new byte[4];
+                rng.GetBytes(n);
+
+                if (BitConverter.ToUInt32(n, 0) % 10 == 0)
+                {
+                    rng.GetBytes(n);
+
+                    if (BitConverter.ToUInt32(n, 0) % 10 > 4)
+                    {
+                        rm.PostMessageFast("C-C-C-C-COMBO BREAK");
+                    }
+                    else
+                    {
+                        rm.PostMessageFast("https://s3.amazonaws.com/img.ultrasignup.com/events/raw/6a76f4a3-4ad2-4ae2-8a3b-c092e85586af.jpg");
+                    }
+                }
+                else
+                {
+                    rm.PostMessageFast(msg.Content);
+                }
+
                 lastPostedMessage = lastMsg;
             }
 
-            lastMsg = msg.Content.ToLowerInvariant();
+            lastMsg = curMsg;
         }
     }
 }

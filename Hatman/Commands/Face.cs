@@ -28,7 +28,8 @@ namespace Hatman.Commands
             "http://i.stack.imgur.com/fNpod.jpg",
             "http://i.stack.imgur.com/2X6XE.jpg",
             "http://i.stack.imgur.com/S35ZH.jpg",
-            "http://i.stack.imgur.com/Y7Jw8.png"
+            "http://i.stack.imgur.com/Y7Jw8.png",
+            "http://i.stack.imgur.com/Oduwh.jpg"
         };
 
         public Regex CommandPattern
