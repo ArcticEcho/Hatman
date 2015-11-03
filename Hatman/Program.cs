@@ -166,11 +166,11 @@ namespace Hatman
         {
             var pics = new[]
             {
-                "",
-                "",
-                "",
-                "",
-                ""
+                "https://i.stack.imgur.com/06ako.jpg",
+                "https://i.stack.imgur.com/SY1YQ.jpg",
+                "https://i.stack.imgur.com/lvGEs.jpg",
+                "https://i.stack.imgur.com/e4Snz.jpg",
+                "https://i.imgur.com/Cd1N7Dt.jpg"
             };
 
             chatRoom.PostMessageFast(pics.PickRandom());
@@ -180,11 +180,11 @@ namespace Hatman
         {
             var pics = new[]
             {
-                "",
-                "",
-                "",
-                "",
-                ""
+                "https://i.stack.imgur.com/8H3gH.jpg",
+                "https://i.stack.imgur.com/HrDk9.jpg",
+                "https://i.stack.imgur.com/LleDx.jpg",
+                "https://i.stack.imgur.com/QIaHp.jpg",
+                "https://i.stack.imgur.com/p7p8a.jpg"
             };
 
             chatRoom.PostMessageFast(pics.PickRandom());
