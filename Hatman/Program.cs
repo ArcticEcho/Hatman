@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using ChatExchangeDotNet;
 using Hatman.Commands;
+using Hatman.Triggers;
 
 namespace Hatman
 {
@@ -15,7 +16,7 @@ namespace Hatman
     {
         private static readonly ManualResetEvent shutdownMre = new ManualResetEvent(false);
         private static readonly List<ICommand> commands = new List<ICommand>();
-        private static readonly List<ICommand> triggers = new List<ICommand>();
+        private static readonly List<ITrigger> triggers = new List<ITrigger>();
         private static Client chatClient;
         private static Room chatRoom;
         private static string roomURL;
@@ -25,6 +26,7 @@ namespace Hatman
         public static void Main(string[] args)
         {
             Console.Title = "Hatman";
+            Console.Write("Starting up...");
 
             if (!File.Exists("Config.txt"))
             {
@@ -34,7 +36,7 @@ namespace Hatman
                 return;
             }
 
-            //PopulateTriggers();
+            PopulateTriggers();
             PopulateCommands();
 
             var email = "";
@@ -43,7 +45,10 @@ namespace Hatman
 
             chatClient = new Client(email, pass);
             chatRoom = chatClient.JoinRoom(roomURL);
+            Extensions.SelfID = chatRoom.Me.ID;
             AttachChatEventListeners();
+
+            Console.WriteLine("done.");
 
             shutdownMre.WaitOne();
         }
@@ -87,17 +92,11 @@ namespace Hatman
             }));
             chatRoom.EventManager.ConnectListener(EventType.UserMentioned, new Action<Message>(m =>
             {
-                foreach (var cmd in commands)
-                {
-                    if (cmd.CommandPattern.IsMatch(m.Content))
-                    {
-                        cmd.ProcessMessage(m, ref chatRoom);
-                    }
-                }
+                HandleMention(m);
             }));
             chatRoom.EventManager.ConnectListener(EventType.MessagePosted, new Action<Message>(m =>
             {
-                // Handle possible trigger.
+                HandleNewMessage(m);
             }));
             chatRoom.EventManager.ConnectListener(EventType.UserEntered, new Action<User>(u =>
             {
@@ -127,15 +126,34 @@ namespace Hatman
         private static void PopulateTriggers()
         {
             var types = Assembly.GetExecutingAssembly().GetTypes();
-            var eventTypes = types.Where(t => t.Namespace == "Hatman.Triggers");
+            var trgs = types.Where(t => t.Namespace == "Hatman.Triggers");
 
-            foreach (EventType chatEvent in Enum.GetValues(typeof(EventType)))
+            foreach (var type in trgs)
             {
-                var eventName = Enum.GetName(typeof(EventType), chatEvent);
-                var type = eventTypes.First(t => t.Name == eventName);
-                var instance = (ICommand)Activator.CreateInstance(type);
+                if (type.IsInterface) { continue; }
 
-                commands.Add(instance);
+                var instance = (ITrigger)Activator.CreateInstance(type);
+
+                triggers.Add(instance);
+            }
+        }
+
+        private static void HandleMention(Message m)
+        {
+            foreach (var cmd in commands)
+            {
+                if (cmd.CommandPattern.IsMatch(m.Content))
+                {
+                    cmd.ProcessMessage(m, ref chatRoom);
+                }
+            }
+        }
+
+        private static void HandleNewMessage(Message m)
+        {
+            foreach (var trg in triggers)
+            {
+                trg.ProcessMessage(m, ref chatRoom);
             }
         }
     }

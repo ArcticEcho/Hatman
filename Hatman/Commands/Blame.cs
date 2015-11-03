@@ -9,6 +9,7 @@ namespace Hatman.Commands
 {
     class Blame : ICommand
     {
+        private readonly Regex ptn = new Regex(@"(?i)^(blame\??|(wh(o|ich (user|(one )?(of us|here)))))", Extensions.RegOpts);
         private readonly string[] phrases = new[]
         {
             "{0}.",
@@ -30,9 +31,10 @@ namespace Hatman.Commands
             "Blame {0} and {1}!",
             "*{0} secretly thinks it's {1}*",
             "Jon Skeet",
-            "Shog"
+            "Shog",
+            "Everyone.",
+            "No one."
         };
-        private readonly Regex ptn = new Regex(@"(?i)^(blame\??|(wh(o|ich (user|(one )?(of us|here)))))", RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
         public Regex CommandPattern
         {

@@ -13,6 +13,8 @@ namespace Hatman
         private static readonly RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
         private static readonly Regex friendlyUsername = new Regex(@"\p{Lu}?\p{Ll}*", RegOpts);
 
+        internal static int SelfID;
+
         public const RegexOptions RegOpts = RegexOptions.Compiled | RegexOptions.CultureInvariant;
 
 
@@ -29,6 +31,11 @@ namespace Hatman
 
         public static string GetChatFriendlyUsername(this User user)
         {
+            if (user.ID == SelfID)
+            {
+                return "me";
+            }
+
             var n = new byte[4];
             rng.GetBytes(n);
 
