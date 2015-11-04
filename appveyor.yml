@@ -1,4 +1,4 @@
-version: 0.4.{build}.0
+version: 0.5.{build}.0
 
 configuration: Release
 
