@@ -65,6 +65,7 @@
     <Compile Include="Commands\DontHurtMe.cs" />
     <Compile Include="Commands\Face.cs" />
     <Compile Include="Commands\ICommand.cs" />
+    <Compile Include="Commands\Should.cs" />
     <Compile Include="Commands\WhatIsLove.cs" />
     <Compile Include="Commands\When.cs" />
     <Compile Include="Extensions.cs" />

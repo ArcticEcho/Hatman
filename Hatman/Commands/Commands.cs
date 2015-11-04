@@ -10,7 +10,7 @@ namespace Hatman.Commands
 {
     class Commands : ICommand
     {
-        private readonly Regex ptn = new Regex(@"(?i)commands|cmds", Extensions.RegOpts);
+        private readonly Regex ptn = new Regex(@"(?i)^(commands|cmds)", Extensions.RegOpts);
         private readonly List<ICommand> commands = new List<ICommand>();
 
         public Regex CommandPattern

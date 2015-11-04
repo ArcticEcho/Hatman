@@ -22,7 +22,7 @@ namespace Hatman.Commands
             "Smells like {0}...",
             "It's {0}!",
             "Either {0} or {1}...",
-            "{0} and {1} both look suspicious...",
+            "*{0} and {1} both look suspicious...*",
             "It's {0}! Blame {0}! No, wait. It's {1}!",
             "{0} and {1}.",
             "{0} or {1}.",
