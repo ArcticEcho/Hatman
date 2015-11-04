@@ -55,7 +55,7 @@ namespace Hatman.Commands
                 rm.PostReplyFast(msg, "Update successful, starting new version...");
             }
 
-
+            au.StartNewVersion();
 
             Process.GetCurrentProcess().CloseMainWindow();
         }

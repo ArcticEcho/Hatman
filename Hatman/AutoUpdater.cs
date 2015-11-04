@@ -45,7 +45,7 @@ namespace Hatman
             }
 
             var jobId = DynamicJson.Deserialize(projJson).build.jobs[0].jobId;
-            var artifRes = Get("buildjobs/" + jobId + "/artifacts");
+            var artifRes = Encoding.UTF8.GetString(Get("buildjobs/" + jobId + "/artifacts"));
             var artifJson = JsonSerializer.DeserializeFromString<Dictionary<string, object>[]>(artifRes);
 
             foreach (var file in artifJson)
