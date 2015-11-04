@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Threading;
 using ChatExchangeDotNet;
 using Hatman.Commands;
@@ -159,6 +160,12 @@ namespace Hatman
 
         private static void HandleMention(Message m)
         {
+            if (Regex.IsMatch(m.Content, @"(?i)^(die|stop|shutdown)$"))
+            {
+                shutdownMre.Set();
+                return;
+            }
+
             foreach (var cmd in commands)
             {
                 if (cmd.CommandPattern.IsMatch(m.Content))
