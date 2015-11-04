@@ -14,6 +14,16 @@ assembly_info:
 before_build:
 - nuget restore
 
+artifacts:
+- path: ChatExchange.Net\bin\Release\Hatman.exe
+  name: Hatman.exe
+- path: ChatExchange.Net\bin\Release\CsQuery.dll
+  name: CsQuery.dll
+- path: ChatExchange.Net\bin\Release\ServiceStack.Text.dll
+  name: ServiceStack.Text.dll
+- path: ChatExchange.Net\bin\Release\ChatExchange.Net.dll
+  name: ChatExchange.Net.dll
+
 build:
   project: Hatman.sln
   parallel: true
