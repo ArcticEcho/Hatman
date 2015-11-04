@@ -164,6 +164,7 @@ namespace Hatman
                 if (cmd.CommandPattern.IsMatch(m.Content))
                 {
                     cmd.ProcessMessage(m, ref chatRoom);
+                    break;
                 }
             }
         }
@@ -174,6 +175,7 @@ namespace Hatman
             foreach (var trg in triggers)
             {
                 trg.ProcessMessage(m, ref chatRoom);
+                break;
             }
         }
 

@@ -32,7 +32,7 @@ namespace Hatman.Triggers
 
                     if (BitConverter.ToUInt32(n, 0) % 10 > 4)
                     {
-                        rm.PostMessageFast("C-C-C-C-COMBO BREAK");
+                        rm.PostMessageFast("C-C-C-COMBO BREAKER");
                     }
                     else
                     {
