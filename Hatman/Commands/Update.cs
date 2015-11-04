@@ -35,8 +35,15 @@ namespace Hatman.Commands
 
 
 
+        public Update() { }
+
         public Update(string apiToken)
         {
+            if (string.IsNullOrWhiteSpace(apiToken))
+            {
+                return;
+            }
+
             au = new AutoUpdater(apiToken);
         }
 
@@ -44,6 +51,8 @@ namespace Hatman.Commands
 
         public void ProcessMessage(Message msg, ref Room rm)
         {
+            if (au == null) { return; }
+
             rm.PostReplyFast(msg, "Updating, one sec...");
 
             if (!au.Update())

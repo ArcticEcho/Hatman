@@ -38,23 +38,25 @@ namespace Hatman.Commands
 
 
 
+        public Commands()
+        {
+            var types = Assembly.GetExecutingAssembly().GetTypes();
+            var cmds = types.Where(t => t.Namespace == "Hatman.Commands");
+
+            foreach (var type in cmds)
+            {
+                if (type.IsInterface || type.IsSealed || type.Name == "Commands") { continue; }
+
+                var instance = (ICommand)Activator.CreateInstance(type);
+
+                commands.Add(instance);
+            }
+        }
+
+
+
         public void ProcessMessage(Message msg, ref Room rm)
         {
-            if (commands.Count == 0)
-            {
-                var types = Assembly.GetExecutingAssembly().GetTypes();
-                var cmds = types.Where(t => t.Namespace == "Hatman.Commands");
-
-                foreach (var type in cmds)
-                {
-                    if (type.IsInterface || type.IsSealed) { continue; }
-
-                    var instance = (ICommand)Activator.CreateInstance(type);
-
-                    commands.Add(instance);
-                }
-            }
-
             var cmdsMsg = new MessageBuilder(MultiLineMessageType.Code, false);
             cmdsMsg.AppendPing(msg.Author);
 
@@ -62,6 +64,8 @@ namespace Hatman.Commands
             {
                 cmdsMsg.AppendText("\n" + cmd.Usage + " - " + cmd.Description);
             }
+
+            cmdsMsg.AppendText("\n" + Usage + " - " + Description);
 
             rm.PostMessageFast(cmdsMsg);
         }
