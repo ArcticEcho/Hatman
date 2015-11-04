@@ -61,6 +61,7 @@
   <ItemGroup>
     <Compile Include="Commands\Blame.cs" />
     <Compile Include="Commands\BruceDickinson.cs" />
+    <Compile Include="Commands\Commands.cs" />
     <Compile Include="Commands\DontHurtMe.cs" />
     <Compile Include="Commands\Face.cs" />
     <Compile Include="Commands\ICommand.cs" />

@@ -119,7 +119,7 @@ namespace Hatman
 
             foreach (var type in cmds)
             {
-                if (type.IsInterface) { continue; }
+                if (type.IsInterface || type.IsSealed) { continue; }
 
                 var instance = (ICommand)Activator.CreateInstance(type);
 
@@ -155,7 +155,7 @@ namespace Hatman
 
         private static void HandleNewMessage(Message m)
         {
-            Console.WriteLine(m.Author + "| " + m);
+            Console.WriteLine(m.Author + " | " + m);
             foreach (var trg in triggers)
             {
                 trg.ProcessMessage(m, ref chatRoom);
