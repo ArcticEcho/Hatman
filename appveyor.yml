@@ -15,13 +15,13 @@ before_build:
 - nuget restore
 
 artifacts:
-- path: ChatExchange.Net\bin\Release\Hatman.exe
+- path: Hatman\bin\Release\Hatman.exe
   name: Hatman.exe
-- path: ChatExchange.Net\bin\Release\CsQuery.dll
+- path: Hatman\bin\Release\CsQuery.dll
   name: CsQuery.dll
-- path: ChatExchange.Net\bin\Release\ServiceStack.Text.dll
+- path: Hatman\bin\Release\ServiceStack.Text.dll
   name: ServiceStack.Text.dll
-- path: ChatExchange.Net\bin\Release\ChatExchange.Net.dll
+- path: Hatman\bin\Release\ChatExchange.Net.dll
   name: ChatExchange.Net.dll
 
 build:
