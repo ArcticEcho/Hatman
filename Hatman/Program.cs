@@ -34,12 +34,13 @@ namespace Hatman
                 return;
             }
 
-            PopulateTriggers();
-            PopulateCommands();
-
             var email = "";
             var pass = "";
-            ReadConfig(out email, out pass);
+            var tkn = "";
+            ReadConfig(out email, out pass, out tkn);
+
+            PopulateTriggers();
+            PopulateCommands(tkn);
 
             chatClient = new Client(email, pass);
             chatRoom = chatClient.JoinRoom(roomURL);
@@ -55,11 +56,12 @@ namespace Hatman
             chatRoom.Leave();
         }
 
-        private static void ReadConfig(out string email, out string password)
+        private static void ReadConfig(out string email, out string password, out string appveyorTkn)
         {
             var settings = File.ReadAllLines("Config.txt");
             email = "";
             password = "";
+            appveyorTkn = "";
 
             foreach (var l in settings)
             {
@@ -80,6 +82,11 @@ namespace Hatman
                     case "ROOM":
                     {
                         roomURL = l.Remove(0, 8);
+                        break;
+                    }
+                    case "APPV":
+                    {
+                        appveyorTkn = l.Remove(0, 17);
                         break;
                     }
                 }
@@ -110,7 +117,7 @@ namespace Hatman
             }));
         }
 
-        private static void PopulateCommands()
+        private static void PopulateCommands(string tkn)
         {
             var types = Assembly.GetExecutingAssembly().GetTypes();
             var cmds = types.Where(t => t.Namespace == "Hatman.Commands");
@@ -119,7 +126,17 @@ namespace Hatman
             {
                 if (type.IsInterface || type.IsSealed) { continue; }
 
-                var instance = (ICommand)Activator.CreateInstance(type);
+                ICommand instance;
+
+                if (type.Name == "Update")
+                {
+                    instance = (ICommand)Activator.CreateInstance(type, tkn);
+                }
+                else
+                {
+                    instance = (ICommand)Activator.CreateInstance(type);
+                }
+
 
                 commands.Add(instance);
             }

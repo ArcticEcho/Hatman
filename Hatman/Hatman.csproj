@@ -59,6 +59,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutoUpdater.cs" />
     <Compile Include="Commands\Blame.cs" />
     <Compile Include="Commands\BruceDickinson.cs" />
     <Compile Include="Commands\Commands.cs" />
@@ -66,6 +67,7 @@
     <Compile Include="Commands\Face.cs" />
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\Should.cs" />
+    <Compile Include="Commands\Update.cs" />
     <Compile Include="Commands\WhatIsLove.cs" />
     <Compile Include="Commands\When.cs" />
     <Compile Include="Extensions.cs" />

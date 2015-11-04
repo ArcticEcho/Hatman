@@ -36,6 +36,8 @@ namespace Hatman.Commands
             }
         }
 
+
+
         public void ProcessMessage(Message msg, ref Room rm)
         {
             if (commands.Count == 0)
