@@ -62,11 +62,11 @@ namespace Hatman.Commands
             else
             {
                 rm.PostReplyFast(msg, "Update successful, starting new version...");
+
+                au.StartNewVersion();
+
+                Process.GetCurrentProcess().CloseMainWindow();
             }
-
-            au.StartNewVersion();
-
-            Process.GetCurrentProcess().CloseMainWindow();
         }
     }
 }
