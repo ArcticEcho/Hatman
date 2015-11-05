@@ -5,7 +5,7 @@ namespace Hatman.Commands
 {
     class Should : ICommand
     {
-        private readonly Regex ptn = new Regex(@"(?i)^((sh|[cw])ould|can|will|is)", Extensions.RegOpts);
+        private readonly Regex ptn = new Regex(@"(?i)^((sh|[cw])ould|can|are|will|is)", Extensions.RegOpts);
         private readonly string[] phrases = new[]
         {
             "No.",
@@ -46,7 +46,7 @@ namespace Hatman.Commands
         {
             get
             {
-                return "(sh|[wc])ould|will|can|is";
+                return "(sh|[wc])ould|will|are|can|is";
             }
         }
 
