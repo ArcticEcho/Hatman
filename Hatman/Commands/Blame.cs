@@ -29,7 +29,8 @@ namespace Hatman.Commands
             "Jon Skeet",
             "Shog",
             "Everyone.",
-            "No one."
+            "No one.",
+            "HIS NAME IS JOHHHHN CEEEEEEENA"
         };
 
         public Regex CommandPattern
