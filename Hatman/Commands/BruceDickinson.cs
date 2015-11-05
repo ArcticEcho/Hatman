@@ -6,7 +6,7 @@ namespace Hatman.Commands
     {
         private static readonly Regex pattern = new Regex("(?i:needs something)|(?i:needs more)", Extensions.RegOpts);
 
-        public System.Text.RegularExpressions.Regex CommandPattern
+        public Regex CommandPattern
         {
             get { return pattern; }
         }
@@ -31,7 +31,7 @@ namespace Hatman.Commands
     {
         private static readonly Regex pattern = new Regex("(?i:fever)", Extensions.RegOpts);
 
-        public System.Text.RegularExpressions.Regex CommandPattern
+        public Regex CommandPattern
         {
             get { return pattern; }
         }
