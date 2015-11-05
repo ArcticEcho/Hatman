@@ -107,11 +107,12 @@ namespace Hatman
         private void RemoveOldFile(string filename)
         {
             var files = Directory.EnumerateFiles(Directory.GetCurrentDirectory());
+            var fn = Path.GetFileNameWithoutExtension(filename).Replace(".", @"\.");
 
             foreach (var file in files)
             {
-                var fn = Path.GetFileNameWithoutExtension(file);
-                if (Regex.IsMatch(fn, @"\d+\.\d+\.\d+\.\d+ - " + filename.Replace(".", @"\.")) &&
+                var oldFn = Path.GetFileNameWithoutExtension(file);
+                if (Regex.IsMatch(oldFn, @"\d+\.\d+\.\d+\.\d+ - " + fn) &&
                     !fn.StartsWith(curVer))
                 {
                     File.Delete(file);
