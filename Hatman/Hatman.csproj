@@ -70,6 +70,7 @@
     <Compile Include="Commands\Update.cs" />
     <Compile Include="Commands\WhatIsLove.cs" />
     <Compile Include="Commands\When.cs" />
+    <Compile Include="Commands\Comics.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
