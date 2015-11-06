@@ -1,4 +1,4 @@
-﻿Note: you'll need to copy this file to the output directory of your compiler.
+Note: you'll need to copy this file to the output directory of your compiler.
 
 Email:mybelovedtrash@gmail.com
 Password:correct horse battery staple
