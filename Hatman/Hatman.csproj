@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoUpdater.cs" />
+    <Compile Include="ChatEventRouter.cs" />
     <Compile Include="Commands\Blame.cs" />
     <Compile Include="Commands\BruceDickinson.cs" />
     <Compile Include="Commands\Commands.cs" />
@@ -70,7 +71,9 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Triggers\HiByeTrigger.cs" />
     <Compile Include="Triggers\ITrigger.cs" />
+    <Compile Include="Triggers\SpyTrigger.cs" />
     <Compile Include="Triggers\Train.cs" />
   </ItemGroup>
   <ItemGroup>

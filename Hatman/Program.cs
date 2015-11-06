@@ -40,21 +40,18 @@ namespace Hatman
             var tkn = "";
             ReadConfig(out email, out pass, out tkn);
 
-            PopulateTriggers();
-            PopulateCommands(tkn);
-
-            Console.Write("done.\nLogging into SE...");
             chatClient = new Client(email, pass);
 
             Console.Write("done.\nJoining room...");
             chatRoom = chatClient.JoinRoom(roomURL);
             Extensions.SelfID = chatRoom.Me.ID;
-            AttachChatEventListeners();
+            
+            ChatEventRouter router = new ChatEventRouter(chatRoom, tkn);
 
             Console.WriteLine("done.\n");
             PostJoinPic();
 
-            shutdownMre.WaitOne();
+            router.ShutdownMre.WaitOne();
 
             PostLeavePic();
             chatRoom.Leave();
@@ -96,98 +93,6 @@ namespace Hatman
                         break;
                     }
                 }
-            }
-        }
-
-        private static void AttachChatEventListeners()
-        {
-            chatRoom.EventManager.ConnectListener(EventType.InternalException, new Action<Exception>(e =>
-            {
-                Console.WriteLine(e);
-            }));
-            chatRoom.EventManager.ConnectListener(EventType.UserMentioned, new Action<Message>(m =>
-            {
-                HandleMention(m);
-            }));
-            chatRoom.EventManager.ConnectListener(EventType.MessagePosted, new Action<Message>(m =>
-            {
-                HandleNewMessage(m);
-            }));
-            chatRoom.EventManager.ConnectListener(EventType.UserEntered, new Action<User>(u =>
-            {
-                // Handle user entering room.
-            }));
-            chatRoom.EventManager.ConnectListener(EventType.UserLeft, new Action<User>(u =>
-            {
-                // Handle user leaving room.
-            }));
-        }
-
-        private static void PopulateCommands(string tkn)
-        {
-            var types = Assembly.GetExecutingAssembly().GetTypes();
-            var cmds = types.Where(t => t.Namespace == "Hatman.Commands");
-
-            foreach (var type in cmds)
-            {
-                if (type.IsInterface || type.IsSealed) { continue; }
-
-                ICommand instance;
-
-                if (type.Name == "Update")
-                {
-                    instance = (ICommand)Activator.CreateInstance(type, tkn);
-                }
-                else
-                {
-                    instance = (ICommand)Activator.CreateInstance(type);
-                }
-
-
-                commands.Add(instance);
-            }
-        }
-
-        private static void PopulateTriggers()
-        {
-            var types = Assembly.GetExecutingAssembly().GetTypes();
-            var trgs = types.Where(t => t.Namespace == "Hatman.Triggers");
-
-            foreach (var type in trgs)
-            {
-                if (type.IsInterface) { continue; }
-
-                var instance = (ITrigger)Activator.CreateInstance(type);
-
-                triggers.Add(instance);
-            }
-        }
-
-        private static void HandleMention(Message m)
-        {
-            if (Regex.IsMatch(m.Content, @"(?i)^(die|stop|shutdown)$"))
-            {
-                shutdownMre.Set();
-                return;
-            }
-
-            foreach (var cmd in commands)
-            {
-                if (cmd.CommandPattern.IsMatch(m.Content))
-                {
-                    cmd.ProcessMessage(m, ref chatRoom);
-                    break;
-                }
-            }
-        }
-
-        private static void HandleNewMessage(Message m)
-        {
-            Console.WriteLine(m.Author + " | " + m);
-            foreach (var trg in triggers)
-            {
-                trg.ProcessMessage(m, ref chatRoom);
-                break;
             }
         }
 

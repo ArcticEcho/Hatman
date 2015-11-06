@@ -2,8 +2,9 @@
 
 namespace Hatman.Triggers
 {
-    interface ITrigger
+    public interface ITrigger
     {
-        void ProcessMessage(Message msg, ref Room rm);
+        void AttachEvents(ChatEventRouter router);
+        bool HandleEvent(object sender, ChatEventArgs e);
     }
 }

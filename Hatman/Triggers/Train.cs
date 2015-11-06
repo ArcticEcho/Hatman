@@ -10,9 +10,21 @@ namespace Hatman.Triggers
         private string lastMsg = "";
         private string lastPostedMessage = "";
 
+        public void AttachEvents(ChatEventRouter router)
+        {
+            router.RegisterTriggerEvent(EventType.UserMentioned, this);
+        }
+        
+        public bool HandleEvent(object sender, ChatEventArgs e)
+        {
+            if (e.Type == EventType.UserMentioned)
+            {
+                return ProcessMessage(e.Message, e.Room);
+            }
+            else return false;
+        }
 
-
-        public void ProcessMessage(Message msg, ref Room rm)
+        public bool ProcessMessage(Message msg, Room rm)
         {
             var curMsg = msg.Content.ToLowerInvariant();
 
@@ -48,6 +60,8 @@ namespace Hatman.Triggers
             }
 
             lastMsg = curMsg;
+            return true;
         }
+
     }
 }
