@@ -1,0 +1,4 @@
+﻿﻿Email:mybelovedtrash@gmail.com
+Password:correct horse battery staple
+AppveyorAPIToken:a1b2c3d4e5f6
+RoomURL:http://chat.stackoverflow.com/rooms/92764/the-ministry-of-silly-hats
