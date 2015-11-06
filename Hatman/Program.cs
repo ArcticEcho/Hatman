@@ -69,6 +69,8 @@ namespace Hatman
 
             foreach (var l in settings)
             {
+                if (string.IsNullOrWhiteSpace(l)) { continue; }
+
                 var prop = l.Trim().ToUpperInvariant().Substring(0, 4);
 
                 switch (prop)
