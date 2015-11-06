@@ -25,7 +25,7 @@ namespace Hatman
         public static void Main(string[] args)
         {
             Console.Title = "Hatman";
-            Console.Write("Starting up...");
+            Console.Write("Reading config...");
 
             if (!File.Exists("Config.txt"))
             {
@@ -43,7 +43,10 @@ namespace Hatman
             PopulateTriggers();
             PopulateCommands(tkn);
 
+            Console.Write("done.\nLogging into SE...");
             chatClient = new Client(email, pass);
+
+            Console.Write("done.\nJoining room...");
             chatRoom = chatClient.JoinRoom(roomURL);
             Extensions.SelfID = chatRoom.Me.ID;
             AttachChatEventListeners();
