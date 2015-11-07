@@ -62,6 +62,9 @@ namespace Hatman.Triggers
                     ICommand first = router.Commands[args[0] - 1];
                     router.Commands[args[0] - 1] = router.Commands[args[1] - 1];
                     router.Commands[args[1] - 1] = first;
+
+                    PrintCommandListReply(e.Message, e.Room);
+
                     e.Handled = true;
                     return true;
 
@@ -83,6 +86,9 @@ namespace Hatman.Triggers
 
                     // toggle the state.
                     router.CommandStates[router.Commands[args[0] - 1]] = !router.CommandStates[router.Commands[args[0] - 1]];
+                    PrintCommandListReply(e.Message, e.Room);
+                    e.Handled = true;
+                    return true;
                 }
                 else if (doneReorderCmd.IsMatch(e.Message.Content))
                 {
@@ -106,7 +112,7 @@ namespace Hatman.Triggers
             foreach (Match m in cmdArgs.Matches(content))
             {
                 int item = -1;
-                if (int.TryParse(content, out item))
+                if (int.TryParse(m.Value, out item))
                 {
                     result.Add(item);
                 }
@@ -121,7 +127,7 @@ namespace Hatman.Triggers
 
             for (int i = 0; i < router.Commands.Count; i++)
             {
-                sb.AppendFormat("{0}. {1}", i + 1, router.Commands[i].Usage);
+                sb.AppendFormat("{0}. ({1}) {2}\n", i + 1, router.CommandStates[router.Commands[i]] ? "Enabled" : "Disabled", router.Commands[i].Usage);
             }
             r.PostReplyFast(m, sb.ToString());
         }
