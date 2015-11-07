@@ -40,12 +40,13 @@ namespace Hatman
             var tkn = "";
             ReadConfig(out email, out pass, out tkn);
 
+            Console.Write("done.\nLogging ti SE...");
             chatClient = new Client(email, pass);
 
             Console.Write("done.\nJoining room...");
             chatRoom = chatClient.JoinRoom(roomURL);
             Extensions.SelfID = chatRoom.Me.ID;
-            
+
             ChatEventRouter router = new ChatEventRouter(chatRoom, tkn);
 
             Console.WriteLine("done.\n");
