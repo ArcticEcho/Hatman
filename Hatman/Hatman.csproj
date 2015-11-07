@@ -73,7 +73,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Triggers\HiByeTrigger.cs" />
     <Compile Include="Triggers\ITrigger.cs" />
-    <Compile Include="Triggers\SpyTrigger.cs" />
+    <Compile Include="Triggers\ReorderTrigger.cs" />
     <Compile Include="Triggers\Train.cs" />
   </ItemGroup>
   <ItemGroup>

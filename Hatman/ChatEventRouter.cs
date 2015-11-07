@@ -106,38 +106,54 @@ namespace Hatman
         private bool HandleTriggerEvent(ChatEventArgs e) 
         {
 
-            bool handled = false;
+            bool stayActive = false;
 
             if (!Triggers.ContainsKey(e.Type)) return false;
                         
             // Last active gets first crack
             if (ActiveTriggers[e.Type] != null)
             {
-                handled = ActiveTriggers[e.Type].HandleEvent(this, e);
-                if (!handled)
+                stayActive = ActiveTriggers[e.Type].HandleEvent(this, e);
+                if (!stayActive)
                 {
                     ActiveTriggers[e.Type] = null;
                 }
-            }
-            else
-            {
-                foreach (ITrigger trigger in Triggers[e.Type])
+                if (e.Handled)
                 {
-                    handled = trigger.HandleEvent(this, e);
-                    if (handled)
-                    {
-                        ActiveTriggers[e.Type] = trigger;
-                        break;
-                    }
+                    return e.Handled;
                 }
             }
-            return handled; 
+            
+            foreach (ITrigger trigger in Triggers[e.Type])
+            {
+                stayActive = trigger.HandleEvent(this, e);
+                if (stayActive)
+                {
+                    ActiveTriggers[e.Type] = trigger;
+                }
+                if (e.Handled)
+                {
+                    break;
+                }
+            }
+            return e.Handled; 
         }
         
         #endregion
 
         #region Commands
 
+        public List<ICommand> Commands
+        {
+            get { return commands; }
+        }
+
+        public Dictionary<ICommand, bool> CommandStates
+        {
+            get { return commandStates; }
+        }
+
+        Dictionary<ICommand, bool> commandStates = new Dictionary<ICommand, bool>();
         List<ICommand> commands = new List<ICommand>();
 
         private void PopulateCommands(string tkn)
@@ -160,6 +176,7 @@ namespace Hatman
                     instance = (ICommand)Activator.CreateInstance(type);
                 }
                 commands.Add(instance);
+                commandStates.Add(instance, true);
             }
         }
 
@@ -167,6 +184,8 @@ namespace Hatman
         {
             foreach (ICommand command in commands)
             {
+                if (!commandStates[command]) continue;
+
                 if (command.CommandPattern.IsMatch(e.Message.Content))
                 {
                     Room r = e.Room;
@@ -187,12 +206,15 @@ namespace Hatman
         public string RawData { get; private set; }
         public EventType Type { get; private set; }
 
+        public bool Handled { get; set; }
+
         public ChatEventArgs(EventType t, Message m, User u, Room r, string rawData)
         {
             this.Type = t;
             this.Message = m;
             this.User = u;
             this.Room = r;
+            this.Handled = false;
         }
     }
 }

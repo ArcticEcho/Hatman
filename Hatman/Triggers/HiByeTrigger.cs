@@ -30,6 +30,7 @@ namespace Hatman.Triggers
                         e.User.GetChatFriendlyUsername(), 
                         Extensions.PickRandom<string>(hiPhrases)));
                 }
+                e.Handled = true;
                 return true;
             }
 

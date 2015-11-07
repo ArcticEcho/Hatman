@@ -3,7 +3,7 @@ using ChatExchangeDotNet;
 
 namespace Hatman.Commands
 {
-    interface ICommand
+    public interface ICommand
     {
         Regex CommandPattern { get; }
         string Description { get; }
