@@ -56,7 +56,10 @@ namespace Hatman
                 }
             }
 
-            Console.WriteLine("{0} - {1}{2}", evt, m != null ? m.Content : "", u != null ? u.GetChatFriendlyUsername() : "");
+            Console.WriteLine("{0} - {1} - {2}", 
+                evt, 
+                u != null ? u.GetChatFriendlyUsername() : (m != null ? m.Author.GetChatFriendlyUsername() : ""),
+                m != null ? m.Content : "");
 
             ChatEventArgs args = new ChatEventArgs(evt, m, u, r, raw);
             bool handled = HandleTriggerEvent(args);
