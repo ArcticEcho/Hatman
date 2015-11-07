@@ -193,6 +193,7 @@ namespace Hatman
                 {
                     Room r = e.Room;
                     command.ProcessMessage(e.Message, ref r);
+                    break;
                 }
             }
         }
