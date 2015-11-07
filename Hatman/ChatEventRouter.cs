@@ -63,7 +63,7 @@ namespace Hatman
 
             ChatEventArgs args = new ChatEventArgs(evt, m, u, r, raw);
             bool handled = HandleTriggerEvent(args);
-            if (!handled && m != null) HandleCommandEvent(args);
+            if (!handled && m != null && evt == EventType.UserMentioned) HandleCommandEvent(args);
         }
 
 
