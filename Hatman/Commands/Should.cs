@@ -14,7 +14,7 @@ namespace Hatman.Commands
             "Nope.",
             "Indubitably",
             "Never. Ever. *EVER*.",
-            "Only if I get my coffee.",
+            "I'll tell ya, only if I get my coffee.",
             "Nah.",
             "Ask The Skeet.",
             "... do I look like I know everything?",
@@ -23,7 +23,7 @@ namespace Hatman.Commands
             "Yeah.",
             "Ofc.",
             "NOOOOOOOOOOOOOOOO",
-            "Sure, ok."
+            "Sure..."
         };
 
         public Regex CommandPattern
