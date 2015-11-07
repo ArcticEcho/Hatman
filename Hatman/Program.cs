@@ -40,7 +40,7 @@ namespace Hatman
             var tkn = "";
             ReadConfig(out email, out pass, out tkn);
 
-            Console.Write("done.\nLogging to SE...");
+            Console.Write("done.\nLogging into SE...");
             chatClient = new Client(email, pass);
 
             Console.Write("done.\nJoining room...");
