@@ -12,12 +12,12 @@ namespace Hatman.Triggers
 
         public void AttachEvents(ChatEventRouter router)
         {
-            router.RegisterTriggerEvent(EventType.UserMentioned, this);
+            router.RegisterTriggerEvent(EventType.MessagePosted, this);
         }
         
         public bool HandleEvent(object sender, ChatEventArgs e)
         {
-            if (e.Type == EventType.UserMentioned)
+            if (e.Type == EventType.MessagePosted)
             {
                 ProcessMessage(e);
             }
