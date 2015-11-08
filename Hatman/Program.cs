@@ -101,7 +101,10 @@ namespace Hatman
         {
             var pics = new[]
             {
-                "https://i.stack.imgur.com/06ako.jpg",
+                "Hi guys",
+                "H3ll0",
+                "*returns*",
+                "Heloo evreebode!1!1!!!!1!eleven!11!!",
                 "https://i.stack.imgur.com/SY1YQ.jpg",
                 "https://i.stack.imgur.com/lvGEs.jpg",
                 "https://i.stack.imgur.com/e4Snz.jpg",
@@ -118,8 +121,11 @@ namespace Hatman
                 "https://i.stack.imgur.com/8H3gH.jpg",
                 "https://i.stack.imgur.com/HrDk9.jpg",
                 "https://i.stack.imgur.com/LleDx.jpg",
-                "https://i.stack.imgur.com/QIaHp.jpg",
-                "https://i.stack.imgur.com/p7p8a.jpg"
+                "https://i.stack.imgur.com/p7p8a.jpg",
+                "Bye guys",
+                "Gtg bbr ttyl",
+                "*Mark my words, I will return!*",
+                "BYEZZZZZZZZZZZZZZZZZZ"
             };
 
             chatRoom.PostMessageFast(pics.PickRandom());
