@@ -117,10 +117,6 @@ namespace Hatman
             if (ActiveTriggers[e.Type] != null)
             {
                 stayActive = ActiveTriggers[e.Type].HandleEvent(this, e);
-                if (!stayActive)
-                {
-                    ActiveTriggers[e.Type] = null;
-                }
                 if (e.Handled)
                 {
                     return e.Handled;
@@ -130,7 +126,7 @@ namespace Hatman
             foreach (ITrigger trigger in Triggers[e.Type])
             {
                 stayActive = trigger.HandleEvent(this, e);
-                if (stayActive)
+                if (stayActive && e.Handled)
                 {
                     ActiveTriggers[e.Type] = trigger;
                 }
@@ -139,6 +135,12 @@ namespace Hatman
                     break;
                 }
             }
+
+            if (!stayActive)
+            {
+                ActiveTriggers[e.Type] = null;
+            }
+            
             return e.Handled; 
         }
         

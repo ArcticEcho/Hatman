@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using ChatExchangeDotNet;
 using System.Text.RegularExpressions;
@@ -55,5 +56,131 @@ namespace Hatman.Commands
             }
             rm.PostReplyFast(msg, String.Format("http://www.xkcd.com/{0}/", comicNumber));
         }
+    }
+
+    public class Comic : ICommand
+    {
+        private readonly Regex pattern = new Regex("(?i:comic)", Extensions.RegOpts);
+
+        
+        Random rng = new Random();
+        Dictionary<string, string> knownComics = new Dictionary<string, string>();
+
+        public Comic()
+        {
+            this.knownComics.Add("pearls", "pearlsbeforeswine");
+            this.knownComics.Add("garfield", "garfield");
+            this.knownComics.Add("foxtrot", "foxtrot");
+            this.knownComics.Add("getfuzzy", "getfuzzy");
+        }
+
+        public Regex CommandPattern
+        {
+            get { return pattern; }
+        }
+
+        public string Description
+        {
+            get { return "Gets a Comic."; }
+        }
+
+        public string Usage
+        {
+            get { return "comic [name]|comic add [shortcut] [name]|comic remove [shortcut]|comic list"; }
+        }
+
+        public void ProcessMessage(Message msg, ref Room rm)
+        {
+            string response = "";
+
+            string[] commandParts = msg.Content.ToLowerInvariant().Replace("comic", "").Trim().Split(' ');
+            if (commandParts.Length == 0)
+            {
+                string selectedComic = this.knownComics.Values.PickRandom();
+                response = this.GetComic(selectedComic);
+            }
+            else if (commandParts[0].ToLowerInvariant().Trim() == "add")
+            {
+                if (commandParts.Length < 3)
+                {
+                    response = "Not enough args";
+                }
+                else
+                {
+                    this.knownComics.Add(commandParts[1].Trim(), commandParts[2].Trim());
+                    response = "Ok.";
+                }
+            }
+            else if (commandParts[0].ToLowerInvariant().Trim() == "remove")
+            {
+                if (commandParts.Length < 2)
+                {
+                    response = "Not enough args";
+                }
+                else if (!this.knownComics.ContainsKey(commandParts[1].Trim()))
+                {
+                    response = "Not found.";
+                }
+                else
+                {
+                    this.knownComics.Remove(commandParts[1].Trim());
+                    response = "Done.";
+                }
+            }
+            else if (commandParts[0].ToLowerInvariant().Trim() == "list")
+            {
+                response = String.Join(", ", this.knownComics.Keys);   
+            }
+            else
+            {
+                if (!this.knownComics.ContainsKey(commandParts[0]))
+                {
+                    response = "Unknown comic";
+                }
+                else
+                {
+                    response = this.GetComic(this.knownComics[commandParts[0]]);
+                    if (response == null)
+                    {
+                        response = "Comic was unsupported, and has been terminated as such.";
+                        this.knownComics.Remove(commandParts[0]);
+                    }
+                }
+            }
+
+            rm.PostReplyFast(msg, response);
+        }
+
+        private string GetComic(string selectedComic)
+        {
+            try
+            {
+                WebClient client = new WebClient();
+
+                DateTime comicDate = DateTime.Now;
+                int days = rng.Next(365 * 8); // Looks like there are 10 years available, but there are some gaps beyond 8.
+
+                comicDate = comicDate.Subtract(new TimeSpan(days, 0, 0, 0));
+
+                string comicURL = String.Format(@"http://www.gocomics.com/{0}/{1}/{2}/{3}", selectedComic, comicDate.Year, comicDate.Month, comicDate.Day);
+                string content = client.DownloadString(comicURL);
+
+                // :D
+                Regex htmlParser = new Regex("(?<=src=\")([^\"]+)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+
+                int index = content.IndexOf("class=\"strip\"");
+
+                if (index < 0) return null;
+
+                return htmlParser.Match(content, index).Value + ".gif";
+            }
+            catch
+            {
+                return null;
+            }
+
+
+        }
+
     }
 }

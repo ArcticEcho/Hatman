@@ -19,14 +19,15 @@ namespace Hatman.Triggers
         {
             if (e.Type == EventType.UserMentioned)
             {
-                return ProcessMessage(e.Message, e.Room);
+                ProcessMessage(e);
             }
-            else return false;
+
+            return false;
         }
 
-        public bool ProcessMessage(Message msg, Room rm)
+        public bool ProcessMessage(ChatEventArgs e)
         {
-            var curMsg = msg.Content.ToLowerInvariant();
+            var curMsg = e.Message.Content.ToLowerInvariant();
 
             if (curMsg.StartsWith("https"))
             {
@@ -44,23 +45,25 @@ namespace Hatman.Triggers
 
                     if (BitConverter.ToUInt32(n, 0) % 10 > 4)
                     {
-                        rm.PostMessageFast("C-C-C-COMBO BREAKER");
+                        e.Room.PostMessageFast("C-C-C-COMBO BREAKER");
                     }
                     else
                     {
-                        rm.PostMessageFast("https://s3.amazonaws.com/img.ultrasignup.com/events/raw/6a76f4a3-4ad2-4ae2-8a3b-c092e85586af.jpg");
+                        e.Room.PostMessageFast("https://s3.amazonaws.com/img.ultrasignup.com/events/raw/6a76f4a3-4ad2-4ae2-8a3b-c092e85586af.jpg");
                     }
                 }
                 else
                 {
-                    rm.PostMessageFast(msg.Content);
+                    e.Room.PostMessageFast(e.Message.Content);
                 }
+
+                e.Handled = true;
 
                 lastPostedMessage = lastMsg;
             }
 
             lastMsg = curMsg;
-            return true;
+            return false;
         }
 
     }
