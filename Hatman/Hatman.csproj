@@ -69,6 +69,7 @@
     <Compile Include="Commands\When.cs" />
     <Compile Include="Commands\Comics.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="GoogleImg.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Triggers\HiByeTrigger.cs" />

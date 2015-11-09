@@ -16,6 +16,7 @@ namespace Hatman
         private static readonly ManualResetEvent shutdownMre = new ManualResetEvent(false);
         private static readonly List<ICommand> commands = new List<ICommand>();
         private static readonly List<ITrigger> triggers = new List<ITrigger>();
+        private static readonly HashSet<string> sillyHatUrls = new GoogleImg("silly hats").GetPicUrls();
         private static Client chatClient;
         private static Room chatRoom;
         private static string roomURL;
@@ -50,11 +51,11 @@ namespace Hatman
             ChatEventRouter router = new ChatEventRouter(chatRoom, tkn);
 
             Console.WriteLine("done.\n");
-            PostJoinPic();
+            chatRoom.PostMessageFast(sillyHatUrls.PickRandom());
 
             router.ShutdownMre.WaitOne();
 
-            PostLeavePic();
+            chatRoom.PostMessageFast(sillyHatUrls.PickRandom());
             chatRoom.Leave();
         }
 
@@ -95,40 +96,6 @@ namespace Hatman
                     }
                 }
             }
-        }
-
-        private static void PostJoinPic()
-        {
-            var pics = new[]
-            {
-                "Hi guys",
-                "H3ll0",
-                "*returns*",
-                "Heloo evreebode!1!1!!!!1!eleven!11!!",
-                "https://i.stack.imgur.com/SY1YQ.jpg",
-                "https://i.stack.imgur.com/lvGEs.jpg",
-                "https://i.stack.imgur.com/e4Snz.jpg",
-                "https://i.imgur.com/Cd1N7Dt.jpg"
-            };
-
-            chatRoom.PostMessageFast(pics.PickRandom());
-        }
-
-        private static void PostLeavePic()
-        {
-            var pics = new[]
-            {
-                "https://i.stack.imgur.com/8H3gH.jpg",
-                "https://i.stack.imgur.com/HrDk9.jpg",
-                "https://i.stack.imgur.com/LleDx.jpg",
-                "https://i.stack.imgur.com/p7p8a.jpg",
-                "Bye guys",
-                "Gtg bbr ttyl",
-                "*Mark my words, I will return!*",
-                "BYEZZZZZZZZZZZZZZZZZZ"
-            };
-
-            chatRoom.PostMessageFast(pics.PickRandom());
         }
     }
 }
