@@ -23,6 +23,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -63,6 +64,7 @@
     <Compile Include="Commands\Commands.cs" />
     <Compile Include="Commands\Face.cs" />
     <Compile Include="Commands\ICommand.cs" />
+    <Compile Include="Commands\Panic.cs" />
     <Compile Include="Commands\Should.cs" />
     <Compile Include="Commands\Update.cs" />
     <Compile Include="Commands\WhatIsLove.cs" />

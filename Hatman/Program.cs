@@ -11,9 +11,10 @@ using Hatman.Triggers;
 
 namespace Hatman
 {
-    class Program
+    public static class Program
     {
-        private static readonly ManualResetEvent shutdownMre = new ManualResetEvent(false);
+        public static readonly ManualResetEvent ShutdownMre = new ManualResetEvent(false);
+
         private static readonly List<ICommand> commands = new List<ICommand>();
         private static readonly List<ITrigger> triggers = new List<ITrigger>();
         private static readonly HashSet<string> sillyHatUrls = new GoogleImg("silly hats").GetPicUrls();

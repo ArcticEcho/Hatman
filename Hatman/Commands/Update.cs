@@ -65,7 +65,7 @@ namespace Hatman.Commands
 
                 au.StartNewVersion();
 
-                Process.GetCurrentProcess().CloseMainWindow();
+                Program.ShutdownMre.Set();
             }
         }
     }
