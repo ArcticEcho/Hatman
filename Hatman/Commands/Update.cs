@@ -63,9 +63,15 @@ namespace Hatman.Commands
             {
                 rm.PostReplyFast(msg, "Update successful, starting new version...");
 
-                au.StartNewVersion();
+                var ps = Process.GetProcesses();
+                var cp = Process.GetCurrentProcess();
 
-                Program.ShutdownMre.Set();
+                for (var i = 0; i < ps.Length; i++)
+                    if (ps[i] != cp && ps[i].MainWindowTitle == "Hatman")
+                        ps[i].CloseMainWindow();
+
+                au.StartNewVersion();
+                cp.CloseMainWindow();
             }
         }
     }
