@@ -34,13 +34,17 @@ namespace Hatman
 
 
 
-        public bool Update()
+        public bool Update(out string oldVersion, out string newVersion, out string updateMessage)
         {
             var projJson = Encoding.UTF8.GetString(Get("projects/ArcticEcho/hatman"));
             var remoteVer = DynamicJson.Deserialize(projJson).build.version;
 
             if (remoteVer == curVer)
             {
+                oldVersion = null;
+                newVersion = null;
+                updateMessage = null;
+
                 return false;
             }
 
@@ -60,6 +64,10 @@ namespace Hatman
                 }
             }
 
+            oldVersion = curVer;
+            newVersion = remoteVer;
+            updateMessage = DynamicJson.Deserialize(projJson).build.message;
+
             return true;
         }
 
@@ -67,7 +75,9 @@ namespace Hatman
         {
             if (string.IsNullOrWhiteSpace(newVerExePath))
             {
-                if (!Update())
+                string x, y, z;
+
+                if (!Update(out x, out y, out z))
                 {
                     return false;
                 }

@@ -53,15 +53,19 @@ namespace Hatman.Commands
         {
             if (au == null) { return; }
 
-            rm.PostReplyFast(msg, "Updating, one sec...");
+            rm.PostReplyFast(msg, "Checking for updates...");
 
-            if (!au.Update())
+            var oldVer = "";
+            var newVer = "";
+            var updMsg = "";
+
+            if (!au.Update(out oldVer, out newVer, out updMsg))
             {
-                rm.PostReplyFast(msg, "I'm already up to date.");
+                rm.PostReplyFast(msg, "No updates available.");
             }
             else
             {
-                rm.PostReplyFast(msg, "Update successful, starting new version...");
+                rm.PostReplyFast(msg, $"New update found and applied: {newVer} (current: {oldVer}). {updMsg}.");
 
                 var ps = Process.GetProcesses();
                 var cp = Process.GetCurrentProcess();

@@ -9,7 +9,7 @@ namespace Hatman.Commands
 {
     class Dice : ICommand
     {
-        private readonly Regex ptn = new Regex(@"(?i)^ d\d+?", Extensions.RegOpts);
+        private readonly Regex ptn = new Regex(@"(?i)^d\d+?", Extensions.RegOpts);
         private readonly RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
         private readonly string[] errorPhrases = new[]
         {
