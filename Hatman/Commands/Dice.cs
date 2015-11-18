@@ -1,23 +1,20 @@
 ﻿using System;
-using System.Linq;
-using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using ChatExchangeDotNet;
-using Hatman;
 
 namespace Hatman.Commands
 {
     class Dice : ICommand
     {
-        private readonly Regex ptn = new Regex(@"(?i)^d", Extensions.RegOpts);
-        private readonly RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
+        private readonly Regex ptn = new Regex(@"(?i)^d(?!o)", Extensions.RegOpts);
         private readonly string[] errorPhrases = new[]
         {
             "https://i.imgflip.com/ucj8n.jpg",
             "Nope",
             "Wrong again...",
             "Try typing with your hands, I hear it helps.",
-            "*now ignoring {0}*"
+            "*now ignoring {0}*",
+            "I know you're just testing me."
         };
 
         public Regex CommandPattern
@@ -56,7 +53,7 @@ namespace Hatman.Commands
             }
 
             var nBytes = new byte[8];
-            rng.GetBytes(nBytes);
+            Extensions.RNG.GetBytes(nBytes);
             var n = (BitConverter.ToUInt64(nBytes, 0) % upInt) + 1;
 
             if (n % 25 == 0)

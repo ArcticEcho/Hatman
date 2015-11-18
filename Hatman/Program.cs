@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Reflection;
-using System.Text.RegularExpressions;
 using System.Threading;
 using ChatExchangeDotNet;
 using Hatman.Commands;

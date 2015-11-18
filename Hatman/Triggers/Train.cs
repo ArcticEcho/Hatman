@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Security.Cryptography;
 using ChatExchangeDotNet;
 
 namespace Hatman.Triggers
 {
     public class Train : ITrigger
     {
-        private readonly RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
         private string lastMsg = "";
         private string lastPostedMessage = "";
 
@@ -37,11 +35,11 @@ namespace Hatman.Triggers
             if (curMsg == lastMsg && curMsg != lastPostedMessage)
             {
                 var n = new byte[4];
-                rng.GetBytes(n);
+                Extensions.RNG.GetBytes(n);
 
                 if (BitConverter.ToUInt32(n, 0) % 10 == 0)
                 {
-                    rng.GetBytes(n);
+                    Extensions.RNG.GetBytes(n);
 
                     if (BitConverter.ToUInt32(n, 0) % 10 > 4)
                     {

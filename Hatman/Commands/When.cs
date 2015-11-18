@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Globalization;
-using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using ChatExchangeDotNet;
 
@@ -9,7 +8,6 @@ namespace Hatman.Commands
     class When : ICommand
     {
         private readonly Regex ptn = new Regex(@"(?i)^when", Extensions.RegOpts);
-        private readonly RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
         private readonly Random r = new Random(DateTime.UtcNow.Millisecond);
         private readonly string[] phrases = new[]
         {
@@ -26,7 +24,8 @@ namespace Hatman.Commands
             "Never.",
             "When hell freezes over.",
             "Soon™.",
-            "When Jon Skeet stops making rep."
+            "When Jon Skeet stops making rep.",
+            "When you finish the time machine."
         };
 
         public Regex CommandPattern
@@ -56,13 +55,19 @@ namespace Hatman.Commands
         public void ProcessMessage(Message msg, ref Room rm)
         {
             var n = new byte[4];
-            rng.GetBytes(n);
+            Extensions.RNG.GetBytes(n);
             var message = "";
 
             if (BitConverter.ToUInt32(n, 0) % 100 > 50)
             {
+                var lwBound = -3652;
+                if (msg.Content.ToLowerInvariant().StartsWith("when will"))
+                {
+                    lwBound = 0;
+                }
+
                 // Pick any date within 10 years from now.
-                var date = DateTime.UtcNow.Add(TimeSpan.FromDays(r.Next(-3652, 3652)));
+                var date = DateTime.UtcNow.Add(TimeSpan.FromDays(r.Next(lwBound, 3652)));
                 message = date.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
             }
             else

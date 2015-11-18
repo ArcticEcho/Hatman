@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using ChatExchangeDotNet;
 using Hatman.Triggers;
 using Hatman.Commands;
@@ -23,7 +22,7 @@ namespace Hatman
 
             PopulateCommands(token);
             PopulateTriggers();
-            
+
             chatRoom.EventManager.ConnectListener(EventType.UserMentioned, new Action<Message>(m =>
             {
                 EventCallback(EventType.UserMentioned, m, null, monitoredRoom, null);
@@ -49,6 +48,15 @@ namespace Hatman
         {
             if (evt == EventType.UserMentioned)
             {
+                var n = new byte[4];
+                Extensions.RNG.GetBytes(n);
+
+                if (BitConverter.ToUInt32(n, 0) % 33 == 0)
+                {
+                    r.PostMessageFast("    FATAL EXCEPTION IN Hatman.ChatEventRouter.EventCallback() : COULD NOT -- Just kidding. Noooope.");
+                    return;
+                }
+
                 if (Regex.IsMatch(m.Content, @"(?i)^(die|stop|shutdown)$"))
                 {
                     ShutdownMre.Set();
@@ -105,14 +113,13 @@ namespace Hatman
             Triggers[type].Add(trigger);
             return true;
         }
-                
+
         private bool HandleTriggerEvent(ChatEventArgs e) 
         {
-
             bool stayActive = false;
 
             if (!Triggers.ContainsKey(e.Type)) return false;
-                        
+
             // Last active gets first crack
             if (ActiveTriggers[e.Type] != null)
             {
@@ -216,11 +223,11 @@ namespace Hatman
 
         public ChatEventArgs(EventType t, Message m, User u, Room r, string rawData)
         {
-            this.Type = t;
-            this.Message = m;
-            this.User = u;
-            this.Room = r;
-            this.Handled = false;
+            Type = t;
+            Message = m;
+            User = u;
+            Room = r;
+            Handled = false;
         }
     }
 }

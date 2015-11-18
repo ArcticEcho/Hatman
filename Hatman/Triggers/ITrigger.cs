@@ -1,6 +1,4 @@
-﻿using ChatExchangeDotNet;
-
-namespace Hatman.Triggers
+﻿namespace Hatman.Triggers
 {
     public interface ITrigger
     {

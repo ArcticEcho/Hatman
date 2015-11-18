@@ -9,12 +9,12 @@ namespace Hatman
 {
     public static class Extensions
     {
-        private static readonly RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
         private static readonly Regex friendlyUsername = new Regex(@"\p{Lu}?\p{Ll}*", RegOpts);
 
         internal static int SelfID;
 
         public const RegexOptions RegOpts = RegexOptions.Compiled | RegexOptions.CultureInvariant;
+        public static readonly RNGCryptoServiceProvider RNG = new RNGCryptoServiceProvider();
 
 
 
@@ -23,7 +23,7 @@ namespace Hatman
             if (items == null) { throw new ArgumentNullException("items"); }
 
             var n = new byte[4];
-            rng.GetBytes(n);
+            RNG.GetBytes(n);
 
             return items.ElementAt((int)(BitConverter.ToUInt32(n, 0) % items.Count()));
         }
@@ -36,7 +36,7 @@ namespace Hatman
             }
 
             var n = new byte[4];
-            rng.GetBytes(n);
+            RNG.GetBytes(n);
 
             var ms = friendlyUsername.Matches(user.Name);
             var name = "";
