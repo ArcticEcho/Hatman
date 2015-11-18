@@ -6,7 +6,7 @@ using ChatExchangeDotNet;
 
 namespace Hatman.Triggers
 {
-    public class HiByeTrigger : ITrigger
+    public class HiBye : ITrigger
     {
         public readonly string[] hiPhrases = new string[] { "Hi", "Heya", "Yo", "Sup" };
 

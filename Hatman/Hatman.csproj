@@ -62,6 +62,7 @@
     <Compile Include="Commands\Blame.cs" />
     <Compile Include="Commands\BruceDickinson.cs" />
     <Compile Include="Commands\Commands.cs" />
+    <Compile Include="Commands\Dice.cs" />
     <Compile Include="Commands\Face.cs" />
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\Panic.cs" />
@@ -74,9 +75,10 @@
     <Compile Include="GoogleImg.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Triggers\HiByeTrigger.cs" />
+    <Compile Include="Triggers\HiBye.cs" />
     <Compile Include="Triggers\ITrigger.cs" />
-    <Compile Include="Triggers\ReorderTrigger.cs" />
+    <Compile Include="Triggers\Reorder.cs" />
+    <Compile Include="Triggers\StarryNight.cs" />
     <Compile Include="Triggers\Train.cs" />
   </ItemGroup>
   <ItemGroup>

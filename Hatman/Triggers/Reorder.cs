@@ -8,7 +8,7 @@ using Hatman.Commands;
 
 namespace Hatman.Triggers
 {
-    public class ReorderTrigger : ITrigger
+    public class Reorder : ITrigger
     {
         ChatEventRouter router;
         private User activeUser;
