@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -52,11 +53,12 @@ namespace Hatman
             ChatEventRouter router = new ChatEventRouter(chatRoom, tkn);
 
             Console.WriteLine("done.\n");
-            chatRoom.PostMessageFast(sillyHatUrls.PickRandom());
+
+            PostPic();
 
             router.ShutdownMre.WaitOne();
 
-            chatRoom.PostMessageFast(sillyHatUrls.PickRandom());
+            PostPic();
             chatRoom.Leave();
         }
 
@@ -96,6 +98,21 @@ namespace Hatman
                         break;
                     }
                 }
+            }
+        }
+
+        private static void PostPic()
+        {
+            while (true)
+            {
+                try
+                {
+                    var url = sillyHatUrls.PickRandom();
+                    new WebClient().DownloadData(url);
+                    chatRoom.PostMessageFast(url);
+                    break;
+                }
+                catch (Exception) { }
             }
         }
     }
