@@ -26,30 +26,14 @@ namespace Hatman.Commands
 
 
 
-        public Regex CommandPattern
-        {
-            get
-            {
-                return ptn;
-            }
-        }
+        public Regex CommandPattern => ptn;
 
-        public string Description
-        {
-            get
-            {
-                return @"ͭ̎̈̄ͥ̓ͮ͂͑̌̾̈̒̔͐͛̍̚҉҉̢̮̭̣̫̩̝̪̲̮̩̥̜̮͖͉͓̭͚̼
+        public string Description => @"ͭ̎̈̄ͥ̓ͮ͂͑̌̾̈̒̔͐͛̍̚҉҉̢̮̭̣̫̩̝̪̲̮̩̥̜̮͖͉͓̭͚̼
 ̴̢̛̛̤̤̗̻̲̙͓̦̻̹̲͇̰̣̙̟̥̓ͦͥ̏͂́";
-            }
-        }
 
-        public string Usage
-        {
-            get
-            {
-                return "";
-            }
-        }
+        public string Usage => "";
+
+
 
         public void ProcessMessage(Message msg, ref Room rm)
         {

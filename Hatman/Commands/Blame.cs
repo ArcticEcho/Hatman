@@ -33,29 +33,13 @@ namespace Hatman.Commands
             "HIS NAME IS JOHHHHN CEEEEEEENA"
         };
 
-        public Regex CommandPattern
-        {
-            get
-            {
-                return ptn;
-            }
-        }
+        public Regex CommandPattern => ptn;
 
-        public string Description
-        {
-            get
-            {
-                return "Picks a user that caused the end of the world.";
-            }
-        }
+        public string Description => "Picks a user that caused the end of the world.";
 
-        public string Usage
-        {
-            get
-            {
-                return "Blame|Who [...]";
-            }
-        }
+        public string Usage => "Blame|Who [...]";
+
+
 
         public void ProcessMessage(Message msg, ref Room rm)
         {

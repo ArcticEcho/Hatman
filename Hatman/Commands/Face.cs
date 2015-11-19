@@ -28,33 +28,14 @@ namespace Hatman.Commands
             "http://i.stack.imgur.com/Oduwh.jpg"
         };
 
-        public Regex CommandPattern
-        {
-            get
-            {
-                return ptn;
-            }
-        }
+        public Regex CommandPattern => ptn;
 
-        public string Description
-        {
-            get
-            {
-                return "Posts a random face.";
-            }
-        }
+        public string Description => "Posts a random face.";
 
-        public string Usage
-        {
-            get
-            {
-                return "[...]face[...]";
-            }
-        }
+        public string Usage => "[...]face[...]";
 
-        public void ProcessMessage(Message msg, ref Room rm)
-        {
-            rm.PostReplyFast(msg, faces.PickRandom());
-        }
+
+
+        public void ProcessMessage(Message msg, ref Room rm) => rm.PostReplyFast(msg, faces.PickRandom());
     }
 }

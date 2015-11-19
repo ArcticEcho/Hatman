@@ -7,6 +7,8 @@ namespace Hatman.Triggers
     {
         public readonly string[] hiPhrases = new string[] { "Hi", "Heya", "Yo", "Sup" };
 
+
+
         public void AttachEvents(ChatEventRouter router)
         {
             router.RegisterTriggerEvent(EventType.UserEntered, this);
@@ -23,10 +25,11 @@ namespace Hatman.Triggers
                 }
                 else
                 {
-                    e.Room.PostMessageFast(String.Format("@{0} {1}", 
+                    e.Room.PostMessageFast(string.Format("@{0} {1}", 
                         e.User.GetChatFriendlyUsername(), 
                         Extensions.PickRandom<string>(hiPhrases)));
                 }
+
                 e.Handled = true;
                 return true;
             }

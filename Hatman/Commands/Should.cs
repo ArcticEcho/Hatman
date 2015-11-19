@@ -26,29 +26,13 @@ namespace Hatman.Commands
             "Sure..."
         };
 
-        public Regex CommandPattern
-        {
-            get
-            {
-                return ptn;
-            }
-        }
+        public Regex CommandPattern => ptn;
 
-        public string Description
-        {
-            get
-            {
-                return "Decides whether or not something should happen.";
-            }
-        }
+        public string Description =>"Decides whether or not something should happen.";
 
-        public string Usage
-        {
-            get
-            {
-                return "(sh|[wc])ould|will|did and many words alike";
-            }
-        }
+        public string Usage => "(sh|[wc])ould|will|did and many words alike";
+
+
 
         public void ProcessMessage(Message msg, ref Room rm)
         {

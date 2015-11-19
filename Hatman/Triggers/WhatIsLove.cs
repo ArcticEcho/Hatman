@@ -44,10 +44,7 @@ namespace Hatman.Triggers
 
 
 
-        public void AttachEvents(ChatEventRouter router)
-        {
-            router.RegisterTriggerEvent(EventType.MessagePosted, this);
-        }
+        public void AttachEvents(ChatEventRouter router) => router.RegisterTriggerEvent(EventType.MessagePosted, this);
 
         public bool HandleEvent(object sender, ChatEventArgs e)
         {

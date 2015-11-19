@@ -20,29 +20,13 @@ namespace Hatman.Commands
             "{0} knows. (I kinda don't.)"
         };
 
-        public Regex CommandPattern
-        {
-            get
-            {
-                return ptn;
-            }
-        }
+        public Regex CommandPattern => ptn;
 
-        public string Description
-        {
-            get
-            {
-                return "\"Why did that happen?\" You ask. Well, I probably know the answer.";
-            }
-        }
+        public string Description =>  "\"Why did that happen?\" You ask. Well, I probably know the answer.";
 
-        public string Usage
-        {
-            get
-            {
-                return "how|what|why [...]";
-            }
-        }
+        public string Usage => "how|what|why [...]";
+
+
 
         public void ProcessMessage(Message msg, ref Room rm)
         {

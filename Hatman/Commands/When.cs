@@ -28,29 +28,13 @@ namespace Hatman.Commands
             "When you finish the time machine."
         };
 
-        public Regex CommandPattern
-        {
-            get
-            {
-                return ptn;
-            }
-        }
+        public Regex CommandPattern => ptn;
 
-        public string Description
-        {
-            get
-            {
-                return "Randomly selects a date (handy for knowing when to get more coffee).";
-            }
-        }
+        public string Description => "Randomly selects a date (handy for knowing when to get more coffee).";
 
-        public string Usage
-        {
-            get
-            {
-                return "When [...]";
-            }
-        }
+        public string Usage =>  "When [...]";
+
+
 
         public void ProcessMessage(Message msg, ref Room rm)
         {

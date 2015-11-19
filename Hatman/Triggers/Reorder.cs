@@ -90,7 +90,7 @@ namespace Hatman.Triggers
                 }
                 else if (doneReorderCmd.IsMatch(e.Message.Content))
                 {
-                    this.activeUser = null;
+                    activeUser = null;
                     e.Room.PostReplyFast(e.Message, "Done.");
                     e.Handled = true;
                 }
@@ -129,7 +129,5 @@ namespace Hatman.Triggers
             }
             r.PostReplyFast(m, sb.ToString());
         }
-
-
     }
 }

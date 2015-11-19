@@ -17,29 +17,11 @@ namespace Hatman.Commands
             "I know you're just testing me."
         };
 
-        public Regex CommandPattern
-        {
-            get
-            {
-                return ptn;
-            }
-        }
+        public Regex CommandPattern => ptn;
 
-        public string Description
-        {
-            get
-            {
-                return "Throws a die.";
-            }
-        }
+        public string Description => "Throws a die.";
 
-        public string Usage
-        {
-            get
-            {
-                return "d<number>";
-            }
-        }
+        public string Usage => "d<number>";
 
         public void ProcessMessage(Message msg, ref Room rm)
         {

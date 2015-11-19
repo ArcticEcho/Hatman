@@ -12,29 +12,11 @@ namespace Hatman.Commands
         private readonly Regex ptn = new Regex(@"(?i)^(commands|cmds)", Extensions.RegOpts);
         private readonly List<ICommand> commands = new List<ICommand>();
 
-        public Regex CommandPattern
-        {
-            get
-            {
-                return ptn;
-            }
-        }
+        public Regex CommandPattern => ptn;
 
-        public string Description
-        {
-            get
-            {
-                return "I get to show off what I can do.";
-            }
-        }
+        public string Description =>  "I get to show off what I can do.";
 
-        public string Usage
-        {
-            get
-            {
-                return "[...]commands[...]";
-            }
-        }
+        public string Usage =>  "commands|cmds";
 
 
 
@@ -45,7 +27,7 @@ namespace Hatman.Commands
 
             foreach (var type in cmds)
             {
-                if (type.IsInterface || type.IsSealed || type.Name == "Commands") { continue; }
+                if (type.IsInterface || type.IsSealed || type.Name == "Commands") continue;
 
                 var instance = (ICommand)Activator.CreateInstance(type);
 

@@ -9,29 +9,11 @@ namespace Hatman.Commands
         private readonly Regex ptn = new Regex(@"(?i)^(update|pull|fetch)", Extensions.RegOpts);
         private readonly AutoUpdater au;
 
-        public Regex CommandPattern
-        {
-            get
-            {
-                return ptn;
-            }
-        }
+        public Regex CommandPattern => ptn;
 
-        public string Description
-        {
-            get
-            {
-                return "Updates the bot with steaming fresh code.";
-            }
-        }
+        public string Description => "Updates the bot with steaming fresh code.";
 
-        public string Usage
-        {
-            get
-            {
-                return "Update|pull|fetch";
-            }
-        }
+        public string Usage => "Update|pull|fetch";
 
 
 

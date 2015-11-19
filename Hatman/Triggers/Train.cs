@@ -8,17 +8,12 @@ namespace Hatman.Triggers
         private string lastMsg = "";
         private string lastPostedMessage = "";
 
-        public void AttachEvents(ChatEventRouter router)
-        {
-            router.RegisterTriggerEvent(EventType.MessagePosted, this);
-        }
-        
+        public void AttachEvents(ChatEventRouter router) => router.RegisterTriggerEvent(EventType.MessagePosted, this);
+
         public bool HandleEvent(object sender, ChatEventArgs e)
         {
             if (e.Type == EventType.MessagePosted)
-            {
                 ProcessMessage(e);
-            }
 
             return false;
         }
@@ -28,9 +23,7 @@ namespace Hatman.Triggers
             var curMsg = e.Message.Content.ToLowerInvariant();
 
             if (curMsg.StartsWith("https"))
-            {
                 curMsg = curMsg.Remove(4, 1);
-            }
 
             if (curMsg == lastMsg && curMsg != lastPostedMessage)
             {
@@ -63,6 +56,5 @@ namespace Hatman.Triggers
             lastMsg = curMsg;
             return false;
         }
-
     }
 }

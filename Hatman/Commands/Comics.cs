@@ -15,20 +15,13 @@ namespace Hatman.Commands
         private DateTime lastFetch = DateTime.MinValue;
         private int latestComicId;
 
-        public Regex CommandPattern
-        {
-            get { return pattern; }
-        }
+        public Regex CommandPattern => pattern;
 
-        public string Description
-        {
-            get { return "Gets an XKCD comic."; }
-        }
+        public string Description => "Gets an XKCD comic."; 
 
-        public string Usage
-        {
-            get { return "xkcd [###]"; }
-        }
+        public string Usage => "xkcd [###]";
+
+
 
         public void ProcessMessage(Message msg, ref Room rm)
         {
@@ -54,7 +47,7 @@ namespace Hatman.Commands
                 }
                 catch { /* Laziest way to do this ever. Why validate parameters when you can just do it. */ }
             }
-            rm.PostReplyFast(msg, String.Format("http://www.xkcd.com/{0}/", comicNumber));
+            rm.PostReplyFast(msg, string.Format("http://www.xkcd.com/{0}/", comicNumber));
         }
     }
 
@@ -68,26 +61,17 @@ namespace Hatman.Commands
 
         public Comic()
         {
-            this.knownComics.Add("pearls", "pearlsbeforeswine");
-            this.knownComics.Add("garfield", "garfield");
-            this.knownComics.Add("foxtrot", "foxtrot");
-            this.knownComics.Add("getfuzzy", "getfuzzy");
+            knownComics.Add("pearls", "pearlsbeforeswine");
+            knownComics.Add("garfield", "garfield");
+            knownComics.Add("foxtrot", "foxtrot");
+            knownComics.Add("getfuzzy", "getfuzzy");
         }
 
-        public Regex CommandPattern
-        {
-            get { return pattern; }
-        }
+        public Regex CommandPattern => pattern;
 
-        public string Description
-        {
-            get { return "Gets a Comic."; }
-        }
+        public string Description =>  "Gets a Comic.";
 
-        public string Usage
-        {
-            get { return "comic [name]|comic add [shortcut] [name]|comic remove [shortcut]|comic list"; }
-        }
+        public string Usage => "comic [name]|comic add [shortcut] [name]|comic remove [shortcut]|comic list";
 
         public void ProcessMessage(Message msg, ref Room rm)
         {
@@ -96,8 +80,8 @@ namespace Hatman.Commands
             string[] commandParts = msg.Content.ToLowerInvariant().Replace("comic", "").Trim().Split(' ');
             if (commandParts.Length == 0)
             {
-                string selectedComic = this.knownComics.Values.PickRandom();
-                response = this.GetComic(selectedComic);
+                string selectedComic = knownComics.Values.PickRandom();
+                response = GetComic(selectedComic);
             }
             else if (commandParts[0].ToLowerInvariant().Trim() == "add")
             {
@@ -107,7 +91,7 @@ namespace Hatman.Commands
                 }
                 else
                 {
-                    this.knownComics.Add(commandParts[1].Trim(), commandParts[2].Trim());
+                    knownComics.Add(commandParts[1].Trim(), commandParts[2].Trim());
                     response = "Ok.";
                 }
             }
@@ -117,33 +101,33 @@ namespace Hatman.Commands
                 {
                     response = "Not enough args";
                 }
-                else if (!this.knownComics.ContainsKey(commandParts[1].Trim()))
+                else if (!knownComics.ContainsKey(commandParts[1].Trim()))
                 {
                     response = "Not found.";
                 }
                 else
                 {
-                    this.knownComics.Remove(commandParts[1].Trim());
+                    knownComics.Remove(commandParts[1].Trim());
                     response = "Done.";
                 }
             }
             else if (commandParts[0].ToLowerInvariant().Trim() == "list")
             {
-                response = String.Join(", ", this.knownComics.Keys);   
+                response = string.Join(", ", knownComics.Keys);   
             }
             else
             {
-                if (!this.knownComics.ContainsKey(commandParts[0]))
+                if (!knownComics.ContainsKey(commandParts[0]))
                 {
                     response = "Unknown comic";
                 }
                 else
                 {
-                    response = this.GetComic(this.knownComics[commandParts[0]]);
+                    response = GetComic(knownComics[commandParts[0]]);
                     if (response == null)
                     {
                         response = "Comic was unsupported, and has been terminated as such.";
-                        this.knownComics.Remove(commandParts[0]);
+                        knownComics.Remove(commandParts[0]);
                     }
                 }
             }
@@ -162,7 +146,7 @@ namespace Hatman.Commands
 
                 comicDate = comicDate.Subtract(new TimeSpan(days, 0, 0, 0));
 
-                string comicURL = String.Format(@"http://www.gocomics.com/{0}/{1}/{2}/{3}", selectedComic, comicDate.Year, comicDate.Month, comicDate.Day);
+                string comicURL = string.Format(@"http://www.gocomics.com/{0}/{1}/{2}/{3}", selectedComic, comicDate.Year, comicDate.Month, comicDate.Day);
                 string content = client.DownloadString(comicURL);
 
                 // :D
@@ -178,9 +162,6 @@ namespace Hatman.Commands
             {
                 return null;
             }
-
-
         }
-
     }
 }

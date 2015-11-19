@@ -16,33 +16,14 @@ namespace Hatman.Commands
             "http://38.media.tumblr.com/2d95777547966a733ccdfb3e34afaacc/tumblr_nnirepYsSe1rouu9to1_250.gif"
         };
 
-        public Regex CommandPattern
-        {
-            get
-            {
-                return ptn;
-            }
-        }
+        public Regex CommandPattern => ptn;
 
-        public string Description
-        {
-            get
-            {
-                return "EVERYTHING IS UNDER CONTROL";
-            }
-        }
+        public string Description => "EVERYTHING IS UNDER CONTROL";
 
-        public string Usage
-        {
-            get
-            {
-                return "panic!1!1!!!!11!!!";
-            }
-        }
+        public string Usage =>"panic!1!1!!!!11!!!";
 
-        public void ProcessMessage(Message msg, ref Room rm)
-        {
-            rm.PostReplyFast(msg, pics.PickRandom());
-        }
+
+
+        public void ProcessMessage(Message msg, ref Room rm) => rm.PostReplyFast(msg, pics.PickRandom());
     }
 }
