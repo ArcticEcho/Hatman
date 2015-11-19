@@ -12,7 +12,8 @@ namespace Hatman.Commands
             "http://i1094.photobucket.com/albums/i442/PeetaEverdeen/OHSHITRUNAROUND.gif",
             "http://rack.0.mshcdn.com/media/ZgkyMDEzLzA2LzE4L2I2L0pvaG5ueURlcHBwLmM1YjNkLmdpZgpwCXRodW1iCTEyMDB4OTYwMD4/70417de1/fe5/Johnny-Depp-panics.gif",
             "http://tech.graze.com/content/images/2014/Apr/colbert-panic.gif",
-            "http://media.giphy.com/media/HZs7JJYJ6rdqo/giphy.gif"
+            "http://media.giphy.com/media/HZs7JJYJ6rdqo/giphy.gif",
+            "http://38.media.tumblr.com/2d95777547966a733ccdfb3e34afaacc/tumblr_nnirepYsSe1rouu9to1_250.gif"
         };
 
         public Regex CommandPattern
