@@ -10,8 +10,9 @@ namespace Hatman.Commands
 {
     class MoarConfusion : ICommand
     {
-        private  readonly Regex reply = new Regex(@"^:\d+\s", Extensions.RegOpts);
-        private readonly Regex ptn = new Regex(@"\?$", Extensions.RegOpts);
+        private readonly Regex reply = new Regex(@"^:\d+\s", Extensions.RegOpts);
+        private readonly Regex ping = new Regex(@"(?i)@hat\w*", Extensions.RegOpts);
+        private readonly Regex ptn = new Regex("");
         private readonly string fkey;
 
 
@@ -64,11 +65,9 @@ namespace Hatman.Commands
             var json = JsonSerializer.DeserializeFromString<Dictionary<string, Dictionary<string, object>[]>>(jsonStr);
 
             foreach (var m in json["events"])
-            {
                 msgIDs.Add((string)m["message_id"]);
-            }
 
-            var message = reply.Replace(WebUtility.HtmlDecode(new WebClient().DownloadString($"http://chat.stackoverflow.com/message/{msgIDs.PickRandom()}?plain=true")), "");
+            var message = ping.Replace(reply.Replace(WebUtility.HtmlDecode(new WebClient().DownloadString($"http://chat.stackoverflow.com/message/{msgIDs.PickRandom()}?plain=true")), ""), "");
 
             rm.PostReplyFast(msg, message);
         }

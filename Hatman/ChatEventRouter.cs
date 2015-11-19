@@ -12,9 +12,12 @@ namespace Hatman
 {
     public class ChatEventRouter
     {
+        private readonly MoarConfusion con = new MoarConfusion();
         private Room monitoredRoom;
 
         public ManualResetEvent ShutdownMre = new ManualResetEvent(false);
+
+
 
         public ChatEventRouter(Room chatRoom, string token)
         {
@@ -69,8 +72,9 @@ namespace Hatman
                 u != null ? u.GetChatFriendlyUsername() : (m != null ? m.Author.GetChatFriendlyUsername() : ""),
                 m != null ? m.Content : "");
 
-            ChatEventArgs args = new ChatEventArgs(evt, m, u, r, raw);
-            bool handled = HandleTriggerEvent(args);
+            var args = new ChatEventArgs(evt, m, u, r, raw);
+            var handled = HandleTriggerEvent(args);
+
             if (!handled && m != null && evt == EventType.UserMentioned) HandleCommandEvent(args);
         }
 
@@ -175,7 +179,7 @@ namespace Hatman
 
             foreach (var type in cmds)
             {
-                if (type.IsInterface || type.IsSealed) { continue; }
+                if (type.IsInterface || type.IsSealed || type == typeof(MoarConfusion)) { continue; }
 
                 ICommand instance;
 
@@ -194,17 +198,20 @@ namespace Hatman
 
         private void HandleCommandEvent(ChatEventArgs e)
         {
+            var r = e.Room;
+
             foreach (ICommand command in commands)
             {
                 if (!commandStates[command]) continue;
 
                 if (command.CommandPattern.IsMatch(e.Message.Content))
                 {
-                    Room r = e.Room;
                     command.ProcessMessage(e.Message, ref r);
-                    break;
+                    return;
                 }
             }
+
+            con.ProcessMessage(e.Message, ref r);
         }
 
         #endregion
