@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Net;
 using System.Text;
@@ -12,6 +13,7 @@ namespace Hatman.Commands
     {
         private readonly Regex reply = new Regex(@"^:\d+\s", Extensions.RegOpts);
         private readonly Regex ping = new Regex(@"(?i)@hat\w*", Extensions.RegOpts);
+        private readonly Regex tinyUrl = new Regex(@"<b>(http://tinyurl.*)</b>", Extensions.RegOpts);
         private readonly Regex ptn = new Regex("");
         private readonly string fkey;
 
@@ -37,21 +39,45 @@ namespace Hatman.Commands
 
         public void ProcessMessage(Message msg, ref Room rm)
         {
-            var jsonStr = Encoding.UTF8.GetString(new WebClient().UploadValues($"http://chat.stackoverflow.com/chats/{rm.ID}/events", new NameValueCollection
+            var n = new byte[4];
+            var message = "";
+            Extensions.RNG.GetBytes(n);
+            var i = BitConverter.ToUInt32(n, 0);
+
+            if (i % 10 == 0)
             {
-                { "since", "0" },
-                { "mode", "Messages" },
-                { "msgCount", "150" },
-                { "fkey", fkey }
-            }));
+                var urlData = "";
 
-            var msgIDs = new HashSet<string>();
-            var json = JsonSerializer.DeserializeFromString<Dictionary<string, Dictionary<string, object>[]>>(jsonStr);
+                if (i % 5 == 0)
+                {
+                    urlData = new WebClient().DownloadString($"http://tinyurl.com/create.php?source=indexpage&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DdQw4w9WgXcQ&submit=Make+TinyURL%21&alias= ");
+                }
+                else
+                {
+                    var url = "http://lmgtfy.com/?q=" + Uri.EscapeUriString(ping.Replace(reply.Replace(msg.Content, ""), ""));
+                    urlData = new WebClient().DownloadString($"http://tinyurl.com/create.php?source=indexpage&url{url}&submit=Make+TinyURL%21&alias=");
+                }
 
-            foreach (var m in json["events"])
-                msgIDs.Add((string)m["message_id"]);
+                message = tinyUrl.Match(urlData).Value;
+            }
+            else
+            {
+                var jsonStr = Encoding.UTF8.GetString(new WebClient().UploadValues($"http://chat.stackoverflow.com/chats/{rm.ID}/events", new NameValueCollection
+                {
+                    { "since", "0" },
+                    { "mode", "Messages" },
+                    { "msgCount", "150" },
+                    { "fkey", fkey }
+                }));
 
-            var message = ping.Replace(reply.Replace(WebUtility.HtmlDecode(new WebClient().DownloadString($"http://chat.stackoverflow.com/message/{msgIDs.PickRandom()}?plain=true")), ""), "");
+                var msgIDs = new HashSet<string>();
+                var json = JsonSerializer.DeserializeFromString<Dictionary<string, Dictionary<string, object>[]>>(jsonStr);
+
+                foreach (var m in json["events"])
+                    msgIDs.Add((string)m["message_id"]);
+
+                message = ping.Replace(reply.Replace(WebUtility.HtmlDecode(new WebClient().DownloadString($"http://chat.stackoverflow.com/message/{msgIDs.PickRandom()}?plain=true")), ""), "");
+            }
 
             rm.PostReplyFast(msg, message);
         }

@@ -53,8 +53,9 @@ namespace Hatman
             {
                 var n = new byte[4];
                 Extensions.RNG.GetBytes(n);
+                var i = BitConverter.ToUInt32(n, 0);
 
-                if (BitConverter.ToUInt32(n, 0) % 33 == 0)
+                if (i % 50 == 0)
                 {
                     r.PostMessageFast("    FATAL EXCEPTION IN Hatman.ChatEventRouter.EventCallback() : COULD NOT -- Just kidding. Noooope.");
                     return;
@@ -62,6 +63,11 @@ namespace Hatman
 
                 if (Regex.IsMatch(m.Content, @"(?i)^(die|stop|shutdown)$"))
                 {
+                    if (i % 33 == 0)
+                    {
+                        r.PostMessageFast("Nope.");
+                        return;
+                    }
                     ShutdownMre.Set();
                     return;
                 }
