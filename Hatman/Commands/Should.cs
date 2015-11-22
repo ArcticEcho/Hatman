@@ -5,7 +5,7 @@ namespace Hatman.Commands
 {
     class Should : ICommand
     {
-        private readonly Regex ptn = new Regex(@"(?i)^((?<!why|how|wh(e(n|re)|at)).)*\?", Extensions.RegOpts);
+        private readonly Regex ptn = new Regex(@"(?i)^(?!why|how|wh(e(n|re)|at)).*\?$", Extensions.RegOpts);
         private readonly string[] phrases = new[]
         {
             "No.",
@@ -13,7 +13,7 @@ namespace Hatman.Commands
             "Yup",
             "Nope",
             "Indubitably.",
-            "Never. Ever. *EVER*.",
+            "No. Never. Ever. *EVER*.",
             "I'll tell ya, only if I get my coffee.",
             "Nah.",
             "Ask The Skeet.",
