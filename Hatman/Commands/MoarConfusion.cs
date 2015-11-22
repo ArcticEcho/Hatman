@@ -44,7 +44,7 @@ namespace Hatman.Commands
             Extensions.RNG.GetBytes(n);
             var i = BitConverter.ToUInt32(n, 0);
 
-            if (i % 10 == 0)
+            if (i % 10 == 0 && !string.IsNullOrWhiteSpace(msg.Content))
             {
                 var urlData = "";
 
@@ -58,7 +58,7 @@ namespace Hatman.Commands
                     urlData = new WebClient().DownloadString($"http://tinyurl.com/create.php?source=indexpage&url{url}&submit=Make+TinyURL%21&alias=");
                 }
 
-                message = tinyUrl.Match(urlData).Value;
+                message = tinyUrl.Match(urlData).Groups[1].Value;
             }
             else
             {
