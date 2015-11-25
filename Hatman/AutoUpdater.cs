@@ -90,13 +90,16 @@ namespace Hatman
 
 
 
-        private byte[] Get(string url)
+        private byte[] Get(string url, bool file = false)
         {
             var req = (HttpWebRequest)WebRequest.Create(apiUrl + url);
 
             req.Method = "get";
             req.Headers.Add("Authorization", "Bearer " + tkn);
-            req.ContentType = "application/json";
+            if (!file)
+            {
+                req.ContentType = "application/json";
+            }
 
             var res = (HttpWebResponse)req.GetResponse();
             using (var strm = res.GetResponseStream())
@@ -107,7 +110,7 @@ namespace Hatman
 
         private void GetFile(string url, string filepath)
         {
-            var bytes = Get(url);
+            var bytes = Get(url, true);
             using (var file = new FileStream(filepath, FileMode.Create))
             {
                 file.Write(bytes, 0, bytes.Length);
