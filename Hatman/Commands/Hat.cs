@@ -8,7 +8,7 @@ namespace Hatman.Commands
 {
     class Hat : ICommand
     {
-        private readonly Regex ptn = new Regex(@"(?i)^hats?\b", Extensions.RegOpts);
+        private readonly Regex ptn = new Regex(@"(?i)\bhats?\b", Extensions.RegOpts);
         private readonly HashSet<string> hats;
 
         public Regex CommandPattern => ptn;
@@ -26,6 +26,8 @@ namespace Hatman.Commands
             {
                 hats.Add(hat);
             }
+
+            hats.Add("http://i.stack.imgur.com/I8zdQ.jpg");
         }
 
 
