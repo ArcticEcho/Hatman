@@ -33,7 +33,7 @@ namespace Hatman.Commands
 
         public void ProcessMessage(Message msg, ref Room rm)
         {
-            if (au == null) { return; }
+            if (au == null) return;
 
             rm.PostReplyFast(msg, "Checking for updates...");
 
@@ -47,14 +47,18 @@ namespace Hatman.Commands
             }
             else
             {
-                rm.PostReplyFast(msg, $"New update found and applied: {newVer} (current: {oldVer}). {updMsg}.");
+                rm.PostReplyFast(msg, $"New update found and applied: {newVer} (current: {oldVer}). \"{updMsg}\".");
 
                 var ps = Process.GetProcesses();
                 var cp = Process.GetCurrentProcess();
 
                 for (var i = 0; i < ps.Length; i++)
-                    if (ps[i] != cp && ps[i].MainWindowTitle == "Hatman")
+                {
+                    if (ps[i].Id != cp.Id && ps[i].MainWindowTitle == "Hatman")
+                    {
                         ps[i].CloseMainWindow();
+                    }
+                }
 
                 au.StartNewVersion();
                 cp.CloseMainWindow();

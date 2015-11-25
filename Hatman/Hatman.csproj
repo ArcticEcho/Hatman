@@ -64,6 +64,7 @@
     <Compile Include="Commands\Commands.cs" />
     <Compile Include="Commands\Dice.cs" />
     <Compile Include="Commands\Face.cs" />
+    <Compile Include="Commands\Hat.cs" />
     <Compile Include="Commands\How.cs" />
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\MoarConfusion.cs" />
