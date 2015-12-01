@@ -45,13 +45,18 @@ namespace Hatman.Commands
             if (BitConverter.ToUInt32(n, 0) % 100 > 50)
             {
                 var lwBound = -3652;
+                var hpBound = 3652;
                 if (msg.Content.ToLowerInvariant().StartsWith("when will"))
                 {
                     lwBound = 0;
                 }
+                if (msg.Content.ToLowerInvariant().StartsWith("when did"))
+                {
+                    hpBound = 0;
+                }
 
                 // Pick any date within 10 years from now.
-                var date = DateTime.UtcNow.Add(TimeSpan.FromDays(r.Next(lwBound, 3652)));
+                var date = DateTime.UtcNow.Add(TimeSpan.FromDays(r.Next(lwBound, hpBound)));
                 message = date.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
             }
             else
