@@ -18,6 +18,7 @@ namespace Hatman.Commands
         public string Usage => "Hat";
 
 
+
         public Hat()
         {
             hats = new GoogleImg("silly hats").GetPicUrls();

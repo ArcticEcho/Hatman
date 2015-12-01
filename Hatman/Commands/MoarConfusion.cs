@@ -46,16 +46,26 @@ namespace Hatman.Commands
 
             if (i % 10 == 0 && !string.IsNullOrWhiteSpace(msg.Content))
             {
-                var urlData = "";
-
-                if (i % 5 == 0)
+                var b = new byte[1];
+                var a = "";
+                for (var j = 0; j < 20; j++)
                 {
-                    urlData = new WebClient().DownloadString($"http://tinyurl.com/create.php?source=indexpage&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DdQw4w9WgXcQ&submit=Make+TinyURL%21&alias= ");
+                    Extensions.RNG.GetBytes(b);
+                    a += b[0] % 10;
+                }
+
+                var urlData = "";
+                var k = new byte[4];
+                Extensions.RNG.GetBytes(k);
+
+                if (BitConverter.ToUInt32(k, 0) % 5 == 0)
+                {
+                    urlData = new WebClient().DownloadString($"http://tinyurl.com/create.php?source=indexpage&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DdQw4w9WgXcQ&submit=Make+TinyURL%21&alias={a}");
                 }
                 else
                 {
                     var url = "http://lmgtfy.com/?q=" + Uri.EscapeUriString(ping.Replace(reply.Replace(msg.Content, ""), ""));
-                    urlData = new WebClient().DownloadString($"http://tinyurl.com/create.php?source=indexpage&url{url}&submit=Make+TinyURL%21&alias=");
+                    urlData = new WebClient().DownloadString($"http://tinyurl.com/create.php?source=indexpage&url{url}&submit=Make+TinyURL%21&alias={a}");
                 }
 
                 message = tinyUrl.Match(urlData).Groups[1].Value;
@@ -74,7 +84,9 @@ namespace Hatman.Commands
                 var json = JsonSerializer.DeserializeFromString<Dictionary<string, Dictionary<string, object>[]>>(jsonStr);
 
                 foreach (var m in json["events"])
+                {
                     msgIDs.Add((string)m["message_id"]);
+                }
 
                 message = ping.Replace(reply.Replace(WebUtility.HtmlDecode(new WebClient().DownloadString($"http://chat.stackoverflow.com/message/{msgIDs.PickRandom()}?plain=true")), ""), "");
             }

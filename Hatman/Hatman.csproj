@@ -70,6 +70,7 @@
     <Compile Include="Commands\MoarConfusion.cs" />
     <Compile Include="Commands\Panic.cs" />
     <Compile Include="Commands\Should.cs" />
+    <Compile Include="Commands\Troll.cs" />
     <Compile Include="Commands\Update.cs" />
     <Compile Include="Triggers\WhatIsLove.cs" />
     <Compile Include="Commands\When.cs" />

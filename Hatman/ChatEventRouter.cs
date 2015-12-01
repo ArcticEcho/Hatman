@@ -63,7 +63,7 @@ namespace Hatman
 
                 if (Regex.IsMatch(m.Content, @"(?i)^(die|stop|shutdown)$"))
                 {
-                    if (i % 33 == 0)
+                    if (i % 3 == 0)
                     {
                         r.PostMessageFast("Nope.");
                         return;
@@ -81,7 +81,7 @@ namespace Hatman
             var args = new ChatEventArgs(evt, m, u, r, raw);
             var handled = HandleTriggerEvent(args);
 
-            if (!handled && m != null && evt == EventType.UserMentioned) HandleCommandEvent(args);
+            if (!handled && m != null && (evt == EventType.UserMentioned || evt == EventType.MessageReply)) HandleCommandEvent(args);
         }
 
 

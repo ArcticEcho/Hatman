@@ -50,15 +50,6 @@ namespace Hatman.Commands
                 rm.PostReplyFast(msg, $"New update found and applied: {newVer} (current: {oldVer}). \"{updMsg}\".");
 
                 var cp = Process.GetCurrentProcess();
-                //var ps = Process.GetProcesses();
-
-                //for (var i = 0; i < ps.Length; i++)
-                //{
-                //    if (ps[i].Id != cp.Id && ps[i].MainWindowTitle == "Hatman")
-                //    {
-                //        ps[i].CloseMainWindow();
-                //    }
-                //}
 
                 au.StartNewVersion();
                 cp.CloseMainWindow();
