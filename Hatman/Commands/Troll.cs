@@ -88,7 +88,7 @@ namespace Hatman.Commands
                 var r = rm;
                 Task.Run(() =>
                 {
-                    for (var x = 0; x < 10; x++)
+                    for (var x = 0; x < 5; x++)
                     {
                         Thread.Sleep(10000);
                         r.PostMessageFast(ping + " " + hellos.PickRandom());
