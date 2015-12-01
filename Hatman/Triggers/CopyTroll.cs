@@ -6,7 +6,7 @@ using ChatExchangeDotNet;
 
 namespace Hatman.Triggers
 {
-    public class Troll : ITrigger
+    public class CopyTroll : ITrigger
     {
         private readonly Regex ptn = new Regex(@"(?i)^(un)?troll \w+$", Extensions.RegOpts);
         private List<string> users = new List<string>();

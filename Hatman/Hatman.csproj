@@ -74,7 +74,7 @@
     <Compile Include="Commands\Should.cs" />
     <Compile Include="Commands\Troll.cs" />
     <Compile Include="Commands\Update.cs" />
-    <Compile Include="Triggers\Troll.cs" />
+    <Compile Include="Triggers\CopyTroll.cs" />
     <Compile Include="Triggers\WhatIsLove.cs" />
     <Compile Include="Commands\When.cs" />
     <Compile Include="Commands\Comics.cs" />
