@@ -30,7 +30,9 @@ namespace Hatman.Commands
             "Shog",
             "Everyone.",
             "No one.",
-            "HIS NAME IS JOHHHHN CEEEEEEENA"
+            "HIS NAME IS JOHHHHN CEEEEEEENA",
+            "Your Mom",
+            "Your Dad"
         };
 
         public Regex CommandPattern => ptn;
