@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 using ChatExchangeDotNet;
@@ -8,6 +9,7 @@ namespace Hatman.Commands
     class Troll : ICommand
     {
         private readonly Regex ptn = new Regex(@"(?i)^troll \w+$", Extensions.RegOpts);
+        private readonly Regex tinyUrl = new Regex(@"<b>(http://tinyurl.*)</b>", Extensions.RegOpts);
         private readonly string[] links = new[]
         {
             "http://www.angelfire.com/super/badwebs/",
@@ -52,8 +54,8 @@ namespace Hatman.Commands
                 a += b[0] % 10;
             }
 
-            var url = links.PickRandom();
-            var shortUrl = new WebClient().DownloadString($"http://tinyurl.com/create.php?source=indexpage&url{url}&submit=Make+TinyURL%21&alias={a}");
+            var url = Uri.EscapeDataString(links.PickRandom());
+            var shortUrl = tinyUrl.Match(new WebClient().DownloadString($"http://tinyurl.com/create.php?source=indexpage&url={url}&submit=Make+TinyURL%21&alias={a}")).Groups[1].Value;
             var outMsg = $"{ping} [{phrases.PickRandom()}]({shortUrl})";
 
             rm.PostMessageFast(outMsg);

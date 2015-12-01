@@ -7,7 +7,7 @@ namespace Hatman
 {
     class GoogleImg
     {
-        private readonly Regex picUrl = new Regex(@"(?i)http://www\.google\.co\.uk/imgres\?imgurl\=https?://(.(?!http))*?\.(png|jpg|gif)", Extensions.RegOpts);
+        private readonly Regex picUrl = new Regex("(?i)imgres\\?imgurl=https?://(.(?!http))*?\\.(png|jpg|gif)", Extensions.RegOpts);
         private readonly string srchTrms;
 
 
@@ -29,9 +29,9 @@ namespace Hatman
 
             foreach (Match m in ms)
             {
-                if (m.Value.Length < 10 || m.Value.Length > 500) continue;
+                if (m.Value.Length < 10 || m.Value.Length > 300) continue;
 
-                urls.Add(m.Value.Remove(0, 38));
+                urls.Add(m.Value.Remove(0, 14));
             }
 
             return urls;
