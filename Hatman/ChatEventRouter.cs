@@ -100,7 +100,7 @@ namespace Hatman
 
             foreach (var type in trgs)
             {
-                if (type.IsInterface) { continue; }
+                if (type.IsInterface || type.IsSealed) { continue; }
 
                 var instance = (ITrigger)Activator.CreateInstance(type);
 

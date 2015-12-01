@@ -91,7 +91,7 @@ namespace Hatman.Commands
                     for (var x = 0; x < 10; x++)
                     {
                         Thread.Sleep(10000);
-                        r.PostMessageFast(ping + hellos.PickRandom());
+                        r.PostMessageFast(ping + " " + hellos.PickRandom());
                     }
                 });
             }
