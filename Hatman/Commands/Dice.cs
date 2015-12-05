@@ -6,7 +6,7 @@ namespace Hatman.Commands
 {
     class Dice : ICommand
     {
-        private readonly Regex ptn = new Regex(@"(?i)^d(?!o)", Extensions.RegOpts);
+        private readonly Regex ptn = new Regex(@"(?i)^d(?![io])", Extensions.RegOpts);
         private readonly string[] errorPhrases = new[]
         {
             "https://i.imgflip.com/ucj8n.jpg",
@@ -22,6 +22,8 @@ namespace Hatman.Commands
         public string Description => "Throws a die.";
 
         public string Usage => "d<number>";
+
+
 
         public void ProcessMessage(Message msg, ref Room rm)
         {
