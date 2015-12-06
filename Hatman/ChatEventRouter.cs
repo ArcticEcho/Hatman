@@ -80,7 +80,7 @@ namespace Hatman
 
             Console.WriteLine("{0} - {1} - {2}", 
                 evt, 
-                u != null ? u.GetChatFriendlyUsername() : (m != null ? m.Author.GetChatFriendlyUsername() : ""),
+                u != null ? u.Name : (m != null ? m.Author.Name : ""),
                 m != null ? m.Content : "");
 
             var args = new ChatEventArgs(evt, m, u, r, raw);

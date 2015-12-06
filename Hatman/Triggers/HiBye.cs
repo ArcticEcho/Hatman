@@ -19,14 +19,14 @@ namespace Hatman.Triggers
         {
             if (e.Type == EventType.UserEntered)
             {
-                if (e.User.GetChatFriendlyUsername().ToLowerInvariant() == "kyll")
+                if (e.User.Name.ToLowerInvariant() == "kyll")
                 {
                     e.Room.PostMessageFast("@Kyll Plop!");
                 }
                 else
                 {
                     e.Room.PostMessageFast(string.Format("@{0} {1}", 
-                        e.User.GetChatFriendlyUsername(), 
+                        e.User.Name, 
                         Extensions.PickRandom<string>(hiPhrases)));
                 }
 

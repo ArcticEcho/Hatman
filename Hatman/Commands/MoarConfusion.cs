@@ -64,7 +64,7 @@ namespace Hatman.Commands
                 }
                 else
                 {
-                    var url = "http://lmgtfy.com/?q=" + Uri.EscapeDataString(ping.Replace(reply.Replace(msg.Content, ""), ""));
+                    var url = "http://lmgtfy.com/?q=" + Uri.EscapeDataString(ping.Replace(reply.Replace(msg.Content, ""), "").Trim());
                     urlData = new WebClient().DownloadString($"http://tinyurl.com/create.php?source=indexpage&url={url}&submit=Make+TinyURL%21&alias={a}");
                 }
 

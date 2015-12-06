@@ -32,7 +32,7 @@ namespace Hatman.Commands
 
             if (!ulong.TryParse(up, out upInt) || upInt == 0)
             {
-                rm.PostReplyFast(msg, string.Format(errorPhrases.PickRandom(), msg.Author.GetChatFriendlyUsername()));
+                rm.PostReplyFast(msg, string.Format(errorPhrases.PickRandom(), msg.Author.Name));
                 return;
             }
 

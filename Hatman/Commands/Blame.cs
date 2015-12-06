@@ -48,11 +48,11 @@ namespace Hatman.Commands
         public void ProcessMessage(Message msg, ref Room rm)
         {
             var users = rm.GetCurrentUsers();
-            var userX = users.PickRandom().GetChatFriendlyUsername();
-            var userY = users.PickRandom().GetChatFriendlyUsername();
+            var userX = users.PickRandom();
+            var userY = users.PickRandom();
             while (userX == userY)
             {
-                userY = users.PickRandom().GetChatFriendlyUsername();
+                userY = users.PickRandom();
             }
             var message = string.Format(phrases.PickRandom(), userX, userY);
 

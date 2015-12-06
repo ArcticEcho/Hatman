@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
-using ChatExchangeDotNet;
 
 namespace Hatman
 {
@@ -26,28 +25,6 @@ namespace Hatman
             RNG.GetBytes(n);
 
             return items.ElementAt((int)(BitConverter.ToUInt32(n, 0) % items.Count()));
-        }
-
-        public static string GetChatFriendlyUsername(this User user)
-        {
-            if (user.ID == SelfID)
-            {
-                return "me";
-            }
-
-            var n = new byte[4];
-            RNG.GetBytes(n);
-
-            var ms = friendlyUsername.Matches(user.Name);
-            var name = "";
-
-            foreach (Match m in ms)
-            {
-                if (name.Length > 3) { break; }
-                name += m.Value;
-            }
-
-            return name;
         }
     }
 }
