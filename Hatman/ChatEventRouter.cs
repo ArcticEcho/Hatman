@@ -35,6 +35,10 @@ namespace Hatman
             {
                 EventCallback(EventType.UserMentioned, m, null, monitoredRoom, null);
             }));
+            chatRoom.EventManager.ConnectListener(EventType.MessageReply, new Action<Message, Message>((m, n) =>
+            {
+                EventCallback(EventType.MessageReply, n, null, monitoredRoom, null);
+            }));
             chatRoom.EventManager.ConnectListener(EventType.MessagePosted, new Action<Message>(m =>
             {
                 EventCallback(EventType.MessagePosted, m, null, monitoredRoom, null);
@@ -86,7 +90,12 @@ namespace Hatman
             var args = new ChatEventArgs(evt, m, u, r, raw);
             var handled = HandleTriggerEvent(args);
 
-            if (!handled && m != null && (evt == EventType.UserMentioned || evt == EventType.MessageReply)) HandleCommandEvent(args);
+            if (!handled && m != null &&
+                (evt == EventType.UserMentioned ||
+                evt == EventType.MessageReply))
+            {
+                HandleCommandEvent(args);
+            }
         }
 
 
