@@ -12,6 +12,11 @@ namespace Hatman
 {
     public class ChatEventRouter
     {
+        private HashSet<string> errors = new HashSet<string>
+        {
+            "    FATAL EXCEPTION: Could not allocate any more Cares to give.",
+            "    FATAL EXCEPTION IN Hatman.ChatEventRouter.EventCallback() : COULD NOT -- Just kidding. Noooope."
+        };
         private readonly MoarConfusion con = new MoarConfusion();
         private Room monitoredRoom;
 
@@ -57,7 +62,7 @@ namespace Hatman
 
                 if (i % 50 == 0)
                 {
-                    r.PostMessageFast("    FATAL EXCEPTION IN Hatman.ChatEventRouter.EventCallback() : COULD NOT -- Just kidding. Noooope.");
+                    r.PostMessageFast(errors.PickRandom());
                     return;
                 }
 
