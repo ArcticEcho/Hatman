@@ -34,7 +34,9 @@ namespace Hatman.Commands
             "No one.",
             "HIS NAME IS JOHHHHN CEEEEEEENA",
             "Your Mom",
-            "Your Dad"
+            "Your Dad",
+            "You",
+            "Yo mama"
         };
 
         public Regex CommandPattern => ptn;
@@ -48,12 +50,23 @@ namespace Hatman.Commands
         public void ProcessMessage(Message msg, ref Room rm)
         {
             var users = rm.GetCurrentUsers();
-            var userX = users.PickRandom();
-            var userY = users.PickRandom();
+            var userX = users.PickRandom().Name;
+            var userY = users.PickRandom().Name;
             while (userX == userY)
             {
-                userY = users.PickRandom();
+                userY = users.PickRandom().Name;
             }
+
+            if (userX == rm.Me.Name)
+            {
+                userX = "me";
+            }
+
+            if (userY == rm.Me.Name)
+            {
+                userY = "me";
+            }
+
             var message = string.Format(phrases.PickRandom(), userX, userY);
 
             rm.PostReplyFast(msg, message);

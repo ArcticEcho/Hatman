@@ -17,7 +17,8 @@ namespace Hatman.Commands
             "Haven't a clue.",
             "Magic.",
             "The butterflies stole my keyboard. Can't answer that.",
-            "{0} knows. (I kinda don't.)"
+            "I don't know, I'm sure {0} knows though.",
+            "Jon Skeet is always the answer."
         };
 
         public Regex CommandPattern => ptn;
