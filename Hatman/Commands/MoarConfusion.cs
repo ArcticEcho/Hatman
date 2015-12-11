@@ -80,15 +80,20 @@ namespace Hatman.Commands
                     { "fkey", fkey }
                 }));
 
-                var msgIDs = new HashSet<string>();
+                var msgIDs = new HashSet<int>();
                 var json = JsonSerializer.DeserializeFromString<Dictionary<string, Dictionary<string, object>[]>>(jsonStr);
 
                 foreach (var m in json["events"])
                 {
-                    msgIDs.Add((string)m["message_id"]);
+                    var id = -1;
+
+                    if (int.TryParse((string)m["message_id"], out id))
+                    {
+                        msgIDs.Add(id);
+                    }
                 }
 
-                message = ping.Replace(reply.Replace(WebUtility.HtmlDecode(new WebClient().DownloadString($"http://chat.stackoverflow.com/message/{msgIDs.PickRandom()}?plain=true")), ""), "");
+                message = Message.GetMessageContent(msg.Host, msgIDs.PickRandom());
             }
 
             rm.PostReplyFast(msg, message);
