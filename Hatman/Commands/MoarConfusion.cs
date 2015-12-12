@@ -58,7 +58,7 @@ namespace Hatman.Commands
                 var k = new byte[4];
                 Extensions.RNG.GetBytes(k);
 
-                if (BitConverter.ToUInt32(k, 0) % 5 == 0)
+                if (BitConverter.ToUInt32(k, 0) % 10 == 0)
                 {
                     urlData = new WebClient().DownloadString($"http://tinyurl.com/create.php?source=indexpage&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DdQw4w9WgXcQ&submit=Make+TinyURL%21&alias={a}");
                 }
