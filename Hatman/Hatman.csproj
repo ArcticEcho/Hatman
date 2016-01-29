@@ -93,6 +93,12 @@
   <ItemGroup>
     <Content Include="Config example.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\chatter-bot-api\dotnet\ChatterBotAPI\ChatterBotAPI.csproj">
+      <Project>{2e624962-f155-432c-a90a-e1ce75dee9ea}</Project>
+      <Name>ChatterBotAPI</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -12,16 +12,25 @@ namespace Hatman.Triggers
         public void AttachEvents(ChatEventRouter router)
         {
             router.RegisterTriggerEvent(EventType.UserEntered, this);
-            //router.RegisterTriggerEvent(EventType.UserLeft, this);
         }
 
         public bool HandleEvent(object sender, ChatEventArgs e)
         {
             if (e.Type == EventType.UserEntered)
             {
-                if (e.User.Name.ToLowerInvariant() == "kyll")
+                var b = new byte[4];
+                Extensions.RNG.GetBytes(b);
+
+                if (BitConverter.ToUInt32(b, 0) % 2 == 0 && (e.User.ID == 4174897 || e.User.ID == 1043380))
                 {
-                    e.Room.PostMessageFast("@Kyll Plop!");
+                    if (e.User.ID == 4174897)
+                    {
+                        e.Room.PostMessageFast("@Kyll Plop!");
+                    }
+                    else if (e.User.ID == 1043380)
+                    {
+                        e.Room.PostMessageFast("@gunr Yo G-daddy!");
+                    }
                 }
                 else
                 {
