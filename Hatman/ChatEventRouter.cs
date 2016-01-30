@@ -72,7 +72,7 @@ namespace Hatman
 
                 if (Regex.IsMatch(m.Content, @"(?i)^(die|stop|shutdown)$"))
                 {
-                    if (i % 3 == 0)
+                    if (i % 2 == 0)
                     {
                         r.PostMessageFast("Nope.");
                         return;

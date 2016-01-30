@@ -35,7 +35,7 @@ namespace Hatman.Triggers
                 else
                 {
                     e.Room.PostMessageFast(string.Format("@{0} {1}", 
-                        e.User.Name, 
+                        e.User.Name.Replace(" ", ""), 
                         Extensions.PickRandom<string>(hiPhrases)));
                 }
 

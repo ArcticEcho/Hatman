@@ -8,13 +8,14 @@ namespace Hatman
     class GoogleImg
     {
         private readonly Regex picUrl = new Regex("(?i)imgres\\?imgurl=https?://(.(?!http))*?\\.(png|jpg|gif)", Extensions.RegOpts);
+        private readonly Regex wordOfTheDay = new Regex("word-and-pronunciation\">\\s+<h1>(\\S+)</h1>", Extensions.RegOpts);
         private readonly string srchTrms;
 
 
 
-        public GoogleImg(string searchTerms)
+        public GoogleImg(string searchTerms, bool addWordOfTheDay = true)
         {
-            srchTrms = searchTerms;
+            srchTrms = $"\"{searchTerms}\" {(addWordOfTheDay ? $" {GetWordOfTheDay()}" : "")}";
         }
 
 
@@ -29,12 +30,18 @@ namespace Hatman
 
             foreach (Match m in ms)
             {
-                if (m.Value.Length < 10 || m.Value.Length > 300) continue;
+                if (m.Value.Length < 10 || m.Value.Length > 300 || urls.Count > 4) continue;
 
                 urls.Add(m.Value.Remove(0, 14));
             }
 
             return urls;
+        }
+
+        private string GetWordOfTheDay()
+        {
+            var html = new WebClient().DownloadString("http://www.merriam-webster.com/word-of-the-day");
+            return wordOfTheDay.Match(html).Groups[1].Value;
         }
     }
 }
