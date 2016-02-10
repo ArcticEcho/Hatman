@@ -37,18 +37,28 @@ namespace Hatman.Commands
         {
             var hat = "";
 
-            while (string.IsNullOrWhiteSpace(hat))
+            var b = new byte[4];
+            Extensions.RNG.GetBytes(b);
+
+            if (BitConverter.ToUInt32(b, 0) % 20 == 0)
             {
-                try
+                hat = "http://cdn-chat.sstatic.net/chat/img/ajax-loader.gif";
+            }
+            else
+            {
+                while (string.IsNullOrWhiteSpace(hat))
                 {
-                    var url = hats.PickRandom();
-                    new WebClient().DownloadData(url);
-                    hat = url;
-                }
-                catch
-                {
-                    hats.Remove(hat);
-                    hat = null;
+                    try
+                    {
+                        var url = hats.PickRandom();
+                        new WebClient().DownloadData(url);
+                        hat = url;
+                    }
+                    catch
+                    {
+                        hats.Remove(hat);
+                        hat = null;
+                    }
                 }
             }
 
