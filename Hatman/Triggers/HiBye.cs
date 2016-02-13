@@ -27,10 +27,6 @@ namespace Hatman.Triggers
                     {
                         e.Room.PostMessageFast("@Kyll Plop!");
                     }
-                    else if (e.User.ID == 1043380)
-                    {
-                        e.Room.PostMessageFast("@gunr Yo G-daddy!");
-                    }
                 }
                 else
                 {
