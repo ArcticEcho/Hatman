@@ -43,7 +43,7 @@ namespace Hatman
             chatClient = new Client(email, pass);
 
             Console.Write("done.\nJoining room...");
-            chatRoom = chatClient.JoinRoom(roomURL);
+            chatRoom = chatClient.JoinRoom(roomURL, true);
             Extensions.SelfID = chatRoom.Me.ID;
 
             ChatEventRouter router = new ChatEventRouter(chatRoom);
