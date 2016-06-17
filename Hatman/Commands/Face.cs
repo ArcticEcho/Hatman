@@ -36,6 +36,6 @@ namespace Hatman.Commands
 
 
 
-        public void ProcessMessage(Message msg, ref Room rm) => rm.PostReplyFast(msg, faces.PickRandom());
+        public void ProcessMessage(Message msg, ref Room rm) => rm.PostReplyLight(msg, faces.PickRandom());
     }
 }

@@ -24,11 +24,11 @@ namespace Hatman.Triggers
 
                 if (BitConverter.ToUInt32(n, 0) % 10 == 0)
                 {
-                    e.Room.PostMessageFast("https://media.giphy.com/media/12mgpZe6brh2nu/giphy.gif");
+                    e.Room.PostMessageLight("https://media.giphy.com/media/12mgpZe6brh2nu/giphy.gif");
                 }
                 else
                 {
-                    e.Room.PostMessageFast("Baby don't hurt me.");
+                    e.Room.PostMessageLight("Baby don't hurt me.");
                 }
 
                 return true;
@@ -50,7 +50,7 @@ namespace Hatman.Triggers
         {
             if (ptn.IsMatch(e.Message.Content))
             {
-                e.Room.PostMessageFast("No more.");
+                e.Room.PostMessageLight("No more.");
                 return true;
             }
 

@@ -25,12 +25,12 @@ namespace Hatman.Triggers
                 {
                     if (e.User.ID == 4174897)
                     {
-                        e.Room.PostMessageFast("@Kyll Plop!");
+                        e.Room.PostMessageLight("@Kyll Plop!");
                     }
                 }
                 else
                 {
-                    e.Room.PostMessageFast(string.Format("@{0} {1}", 
+                    e.Room.PostMessageLight(string.Format("@{0} {1}", 
                         e.User.Name.Replace(" ", ""), 
                         Extensions.PickRandom<string>(hiPhrases)));
                 }

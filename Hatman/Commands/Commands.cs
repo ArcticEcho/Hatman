@@ -49,7 +49,7 @@ namespace Hatman.Commands
 
             cmdsMsg.AppendText("\n" + Usage + " - " + Description);
 
-            rm.PostMessageFast(cmdsMsg);
+            rm.PostMessageLight(cmdsMsg);
         }
     }
 }

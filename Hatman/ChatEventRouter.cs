@@ -24,11 +24,11 @@ namespace Hatman
 
 
 
-        public ChatEventRouter(Room chatRoom, string token)
+        public ChatEventRouter(Room chatRoom)
         {
             monitoredRoom = chatRoom;
 
-            PopulateCommands(token);
+            PopulateCommands();
             PopulateTriggers();
 
             chatRoom.EventManager.ConnectListener(EventType.UserMentioned, new Action<Message>(m =>
@@ -66,7 +66,7 @@ namespace Hatman
 
                 if (i % 50 == 0)
                 {
-                    r.PostMessageFast(errors.PickRandom());
+                    r.PostMessageLight(errors.PickRandom());
                     return;
                 }
 
@@ -74,7 +74,7 @@ namespace Hatman
                 {
                     if (i % 2 == 0)
                     {
-                        r.PostMessageFast("Nope.");
+                        r.PostMessageLight("Nope.");
                         return;
                     }
                     ShutdownMre.Set();
@@ -192,25 +192,17 @@ namespace Hatman
         Dictionary<ICommand, bool> commandStates = new Dictionary<ICommand, bool>();
         List<ICommand> commands = new List<ICommand>();
 
-        private void PopulateCommands(string tkn)
+        private void PopulateCommands()
         {
             var types = Assembly.GetExecutingAssembly().GetTypes();
             var cmds = types.Where(t => t.Namespace == "Hatman.Commands");
 
             foreach (var type in cmds)
             {
-                if (type.IsInterface || type.IsSealed || type == typeof(MoarConfusion)) { continue; }
+                if (type.IsInterface || type.IsSealed || type == typeof(MoarConfusion)) continue;
 
-                ICommand instance;
+                var instance = (ICommand)Activator.CreateInstance(type);
 
-                if (type.Name == "Update")
-                {
-                    instance = (ICommand)Activator.CreateInstance(type, tkn);
-                }
-                else
-                {
-                    instance = (ICommand)Activator.CreateInstance(type);
-                }
                 commands.Add(instance);
                 commandStates.Add(instance, true);
             }

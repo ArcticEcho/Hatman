@@ -49,7 +49,7 @@ namespace Hatman.Commands
 
         public void ProcessMessage(Message msg, ref Room rm)
         {
-            var users = rm.GetCurrentUsers();
+            var users = rm.CurrentUsers;
             var userX = users.PickRandom().Name;
             var userY = users.PickRandom().Name;
             while (userX == userY)
@@ -69,7 +69,7 @@ namespace Hatman.Commands
 
             var message = string.Format(phrases.PickRandom(), userX, userY);
 
-            rm.PostReplyFast(msg, message);
+            rm.PostReplyLight(msg, message);
         }
     }
 }

@@ -32,7 +32,7 @@ namespace Hatman.Commands
 
             if (!ulong.TryParse(up, out upInt) || upInt == 0)
             {
-                rm.PostReplyFast(msg, string.Format(errorPhrases.PickRandom(), msg.Author.Name));
+                rm.PostReplyLight(msg, string.Format(errorPhrases.PickRandom(), msg.Author.Name));
                 return;
             }
 
@@ -42,17 +42,17 @@ namespace Hatman.Commands
 
             if (n % 25 == 0)
             {
-                rm.PostReplyFast(msg, "http://imgs.xkcd.com/comics/random_number.png");
+                rm.PostReplyLight(msg, "http://imgs.xkcd.com/comics/random_number.png");
                 return;
             }
 
             if (upInt == 100)
             {
-                rm.PostReplyFast(msg, n == 1 ? "**CRITICAL SUCCESS**" : n == 100 ? "**CRITICAL FAILURE**" : n.ToString());
+                rm.PostReplyLight(msg, n == 1 ? "**CRITICAL SUCCESS**" : n == 100 ? "**CRITICAL FAILURE**" : n.ToString());
             }
             else
             {
-                rm.PostReplyFast(msg, n);
+                rm.PostReplyLight(msg, n);
             }
         }
     }

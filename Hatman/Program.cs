@@ -16,7 +16,6 @@ namespace Hatman
 
         private static readonly List<ICommand> commands = new List<ICommand>();
         private static readonly List<ITrigger> triggers = new List<ITrigger>();
-        private static readonly HashSet<string> sillyHatUrls = new GoogleImg("silly hats").GetPicUrls();
         private static Client chatClient;
         private static Room chatRoom;
         private static string roomURL;
@@ -38,8 +37,7 @@ namespace Hatman
 
             var email = "";
             var pass = "";
-            var tkn = "";
-            ReadConfig(out email, out pass, out tkn);
+            ReadConfig(out email, out pass);
 
             Console.Write("done.\nLogging into SE...");
             chatClient = new Client(email, pass);
@@ -48,24 +46,22 @@ namespace Hatman
             chatRoom = chatClient.JoinRoom(roomURL);
             Extensions.SelfID = chatRoom.Me.ID;
 
-            ChatEventRouter router = new ChatEventRouter(chatRoom, tkn);
+            ChatEventRouter router = new ChatEventRouter(chatRoom);
 
             Console.WriteLine("done.\n");
-
-            PostPic();
+            chatRoom.PostMessageLight("Hiya");
 
             router.ShutdownMre.WaitOne();
 
-            PostPic();
+            chatRoom.PostMessageLight("Cya");
             chatRoom.Leave();
         }
 
-        private static void ReadConfig(out string email, out string password, out string appveyorTkn)
+        private static void ReadConfig(out string email, out string password)
         {
             var settings = File.ReadAllLines("Config.txt");
             email = "";
             password = "";
-            appveyorTkn = "";
 
             foreach (var l in settings)
             {
@@ -90,27 +86,7 @@ namespace Hatman
                         roomURL = l.Remove(0, 8);
                         break;
                     }
-                    case "APPV":
-                    {
-                        appveyorTkn = l.Remove(0, 17);
-                        break;
-                    }
                 }
-            }
-        }
-
-        private static void PostPic()
-        {
-            while (true)
-            {
-                try
-                {
-                    var url = sillyHatUrls.PickRandom();
-                    new WebClient().DownloadData(url);
-                    chatRoom.PostMessageFast(url);
-                    break;
-                }
-                catch (Exception) { }
             }
         }
     }

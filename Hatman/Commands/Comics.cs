@@ -47,7 +47,7 @@ namespace Hatman.Commands
                 }
                 catch { /* Laziest way to do this ever. Why validate parameters when you can just do it. */ }
             }
-            rm.PostReplyFast(msg, string.Format("http://www.xkcd.com/{0}/", comicNumber));
+            rm.PostReplyLight(msg, string.Format("http://www.xkcd.com/{0}/", comicNumber));
         }
     }
 
@@ -132,7 +132,7 @@ namespace Hatman.Commands
                 }
             }
 
-            rm.PostReplyFast(msg, response);
+            rm.PostReplyLight(msg, response);
         }
 
         private string GetComic(string selectedComic)

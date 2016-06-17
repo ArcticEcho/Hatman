@@ -44,14 +44,14 @@ namespace Hatman.Triggers
                     // need 2 args
                     if (args.Count < 2)
                     {
-                        e.Room.PostReplyFast(e.Message, "Not enough parameters. Try again, dummy.");
+                        e.Room.PostReplyLight(e.Message, "Not enough parameters. Try again, dummy.");
                         e.Handled = true;
                         return true;
                     }
                     // sanity check
                     if (args[0] > router.Commands.Count || args[1] > router.Commands.Count)
                     {
-                        e.Room.PostReplyFast(e.Message, "Message failed sanity check. You're crazy.");
+                        e.Room.PostReplyLight(e.Message, "Message failed sanity check. You're crazy.");
                         e.Handled = true;
                         return true;
                     }
@@ -71,13 +71,13 @@ namespace Hatman.Triggers
                 {
                     if (args.Count <1)
                     {
-                        e.Room.PostReplyFast(e.Message, "Not enough parameters. Try again, dummy.");
+                        e.Room.PostReplyLight(e.Message, "Not enough parameters. Try again, dummy.");
                         e.Handled = true;
                         return true;
                     }
                     if (args[0] > router.Commands.Count)
                     {
-                        e.Room.PostReplyFast(e.Message, "Message failed sanity check. You're crazy.");
+                        e.Room.PostReplyLight(e.Message, "Message failed sanity check. You're crazy.");
                         e.Handled = true;
                         return true;
                     }
@@ -91,12 +91,12 @@ namespace Hatman.Triggers
                 else if (doneReorderCmd.IsMatch(e.Message.Content))
                 {
                     activeUser = null;
-                    e.Room.PostReplyFast(e.Message, "Done.");
+                    e.Room.PostReplyLight(e.Message, "Done.");
                     e.Handled = true;
                 }
                 else
                 {
-                    e.Room.PostReplyFast(e.Message, "Try not mumbling so much.");
+                    e.Room.PostReplyLight(e.Message, "Try not mumbling so much.");
                 }
             }
             
@@ -127,7 +127,7 @@ namespace Hatman.Triggers
             {
                 sb.AppendFormat("{0}. ({1}) {2}\n", i + 1, router.CommandStates[router.Commands[i]] ? "Enabled" : "Disabled", router.Commands[i].Usage);
             }
-            r.PostReplyFast(m, sb.ToString());
+            r.PostReplyLight(m, sb.ToString());
         }
     }
 }

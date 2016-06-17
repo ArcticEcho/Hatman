@@ -57,7 +57,7 @@ namespace Hatman.Commands
     //            user = users.PickRandom();
     //        }
 
-    //        rm.PostReplyFast(msg, string.Format(phrase, user));
+    //        rm.PostReplyLight(msg, string.Format(phrase, user));
     //    }
     //}
 }

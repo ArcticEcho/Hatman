@@ -64,7 +64,7 @@ namespace Hatman.Commands
                 message = phrases.PickRandom();
             }
 
-            rm.PostReplyFast(msg, message);
+            rm.PostReplyLight(msg, message);
         }
     }
 }

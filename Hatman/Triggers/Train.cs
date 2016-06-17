@@ -36,16 +36,16 @@ namespace Hatman.Triggers
 
                     if (BitConverter.ToUInt32(n, 0) % 10 > 4)
                     {
-                        e.Room.PostMessageFast("C-C-C-COMBO BREAKER");
+                        e.Room.PostMessageLight("C-C-C-COMBO BREAKER");
                     }
                     else
                     {
-                        e.Room.PostMessageFast("https://s3.amazonaws.com/img.ultrasignup.com/events/raw/6a76f4a3-4ad2-4ae2-8a3b-c092e85586af.jpg");
+                        e.Room.PostMessageLight("https://s3.amazonaws.com/img.ultrasignup.com/events/raw/6a76f4a3-4ad2-4ae2-8a3b-c092e85586af.jpg");
                     }
                 }
                 else
                 {
-                    e.Room.PostMessageFast(e.Message.Content);
+                    e.Room.PostMessageLight(e.Message.Content);
                 }
 
                 e.Handled = true;

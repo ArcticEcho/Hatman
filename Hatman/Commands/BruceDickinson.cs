@@ -13,7 +13,7 @@ namespace Hatman.Commands
         public string Usage => "needs something|needs more";
 
         public void ProcessMessage(ChatExchangeDotNet.Message msg, ref ChatExchangeDotNet.Room rm) =>
-            rm.PostReplyFast(msg, "http://i.stack.imgur.com/3U9DQ.gif");
+            rm.PostReplyLight(msg, "http://i.stack.imgur.com/3U9DQ.gif");
     }
 
     public class Fever : ICommand
@@ -27,6 +27,6 @@ namespace Hatman.Commands
         public string Usage => "[...]fever[...]";
 
         public void ProcessMessage(ChatExchangeDotNet.Message msg, ref ChatExchangeDotNet.Room rm) =>
-            rm.PostReplyFast(msg, "http://i.stack.imgur.com/edt7R.jpg");
+            rm.PostReplyLight(msg, "http://i.stack.imgur.com/edt7R.jpg");
     }
 }
