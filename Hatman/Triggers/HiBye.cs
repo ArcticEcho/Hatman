@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using ChatExchangeDotNet;
 
 namespace Hatman.Triggers
@@ -16,17 +16,14 @@ namespace Hatman.Triggers
 
         public bool HandleEvent(object sender, ChatEventArgs e)
         {
-            if (e.Type == EventType.UserEntered)
+            if (e.Type == EventType.UserEntered && !e.User.IsMod)
             {
                 var b = new byte[4];
                 Extensions.RNG.GetBytes(b);
 
-                if (BitConverter.ToUInt32(b, 0) % 2 == 0 && (e.User.ID == 4174897 || e.User.ID == 1043380))
+                if (BitConverter.ToUInt32(b, 0) % 2 == 0 && e.User.ID == 4174897)
                 {
-                    if (e.User.ID == 4174897)
-                    {
-                        e.Room.PostMessageLight("@Kyll Plop!");
-                    }
+                    e.Room.PostMessageLight("@Kyll Plop!");
                 }
                 else
                 {
