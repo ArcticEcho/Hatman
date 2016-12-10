@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text.RegularExpressions;
 using ChatExchangeDotNet;
 
@@ -66,8 +66,8 @@ namespace Hatman.Commands
             var nBytes = new byte[8 * diceCount];
             Extensions.RNG.GetBytes(nBytes);
 
-            var sum = 0;
-            for (uint i = 0; i < diceCount; ++i)
+            uint sum = 0;
+            for (int i = 0; i < diceCount; ++i)
             {
                 sum += (BitConverter.ToUInt64(nBytes, 8 * i) % edgeCount) + 1;
             }
