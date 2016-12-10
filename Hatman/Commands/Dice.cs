@@ -67,9 +67,9 @@ namespace Hatman.Commands
             Extensions.RNG.GetBytes(nBytes);
 
             ulong sum = 0;
-            for (int i = 0; i < diceCount; ++i)
+            for (ulong i = 0; i < diceCount; ++i)
             {
-                sum += (BitConverter.ToUInt64(nBytes, 8 * i) % edgeCount) + 1;
+                sum += (BitConverter.ToUInt64(nBytes, 8 * (int)i) % edgeCount) + 1;
             }
             
             rm.PostReplyLight(msg, sum);
