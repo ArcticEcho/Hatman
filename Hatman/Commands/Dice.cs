@@ -19,7 +19,7 @@ namespace Hatman.Commands
 
         public Regex CommandPattern => ptn;
 
-        public string Description => "Throws a die.";
+        public string Description => "Throws dice.";
 
         public string Usage => "<optional number>d<number>";
 
