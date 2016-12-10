@@ -59,7 +59,7 @@ namespace Hatman.Commands
             /* Do we need it? */
             if (diceCount > 1000)
             {
-                rm.PostReplyLight(msg, "I don't have that many dices");
+                rm.PostReplyLight(msg, "I don't have that many dice");
                 return;
             }
 
