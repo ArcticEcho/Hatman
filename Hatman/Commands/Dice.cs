@@ -66,7 +66,7 @@ namespace Hatman.Commands
             var nBytes = new byte[8 * diceCount];
             Extensions.RNG.GetBytes(nBytes);
 
-            uint sum = 0;
+            long sum = 0;
             for (int i = 0; i < diceCount; ++i)
             {
                 sum += (BitConverter.ToUInt64(nBytes, 8 * i) % edgeCount) + 1;
